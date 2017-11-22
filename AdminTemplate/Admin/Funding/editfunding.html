@@ -1,0 +1,182 @@
+<include file="Common/header"/>
+<include file="Common/left"/>
+<!--引用编辑器-->
+ <script type="text/javascript" src="{$resource}editor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="{$resource}editor/ueditor.all.js"></script>
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var ue = UE.getEditor('container');
+    </script>
+<!--引用编辑器-->
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        编辑融资管理
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> 首页</li>
+        <li>信息管理</li>
+        <li class="active">编辑融资管理</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="box">
+              <div class="box-header">
+                        <h3 class="box-title"><a href="{:U('Funding/listFundings')}"><button type="button" class="btn btn-block btn-default">融资管理列表</button></a></h3>                      
+                        <h3 class="box-title"><a href="#"><button type="button" class="btn btn-block btn-primary">编辑融资管理</button></a></h3>
+                    </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form" method="post" action="{:U('Funding/editFunding')}">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">融资管理标题</label>
+                  <input type="text" name="fundingname" class="form-control" id="exampleInputEmail1" placeholder="请填写融资管理标题" value="{$funding.funding_name}">
+                </div>
+                  <div class="form-group">
+                  <label for="t3">融资管理信息</label>
+                  <script id="container" name="fundingcontent" type="text/plain" style="height:300px">{$funding.funding_content}</script>                  
+                </div>
+                   <div class="form-group">
+                  <label for="exampleInputEmail1">联系人</label>
+                  <input type="text" name="contactlinkman" class="form-control" id="exampleInputEmail1" placeholder="请填写联系人" value="{$funding.contact_linkman}">
+                </div>
+                   <div class="form-group">
+                  <label for="exampleInputEmail1">联系电话</label>
+                  <input type="text" name="contactphone" class="form-control" id="exampleInputEmail1" placeholder="请填写联系电话" value="{$funding.contact_phone}">
+                </div>
+                   <div class="form-group">
+                  <label for="exampleInputEmail1">浏览次数</label>
+                  <input type="text" name="viewtime" class="form-control" id="exampleInputEmail1" placeholder="请填写浏览次数" value="{$funding.view_time}">
+                </div>
+                  <div class="form-group">
+                <label>增加时间:</label>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input class="form-control pull-right" id="datepicker" type="text" value="{$funding.add_time|date='m/d/Y',###}" name="addtime">
+                </div>
+                <!-- /.input group -->
+              </div>
+                  <div class="form-group">
+                  <label>公司类型</label>
+                  <select class="form-control" name="companytypeid">
+                      <option>请选择公司类型</option>
+                    <volist name="companytype" id="vo">
+                    <option value="{$vo.type_id}" <eq name="funding.company_type_id" value="$vo.type_id">selected</eq>>{$vo.type_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                   <div class="form-group">
+                  <label>年化收益</label>
+                  <select class="form-control" name="annualyieldid">
+                      <option>请选择年化收益</option>
+                    <volist name="annualyield" id="vo">
+                        <option value="{$vo.yield_id}" <eq name="funding.annual_yield_id" value="$vo.yield_id">selected</eq>>{$vo.yield_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>融资周期</label>
+                  <select class="form-control" name="cycleid">
+                      <option>请选择融资周期</option>
+                    <volist name="cycle" id="vo">
+                    <option value="{$vo.cycle_id}" <eq name="funding.cycle_id" value="$vo.cycle_id">selected</eq>>{$vo.cycle_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>项目类型</label>
+                  <select class="form-control" name="projecttypeid">
+                      <option>请选择项目类型</option>                      
+                    <volist name="projecttype" id="vo">
+                    <option value="{$vo.type_id}" <eq name="funding.project_type_id" value="$vo.type_id">selected</eq>>{$vo.type_name}</option>
+                    </volist>
+                  </select>
+                </div>              
+                  <div class="form-group">
+                  <label>省份</label>
+                  <select class="form-control" name="provinceid" id="province">
+                    <volist name="province" id="vo">
+                    <option value="{$vo.province_id}" <eq name="funding.province_id" value="$vo.province_id">selected</eq>>{$vo.province_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>城市</label>
+                  <select class="form-control" name="cityid" id="city">                      
+                       <volist name="city" id="vo">
+                    <option value="{$vo.city_id}" <eq name="funding.city_id" value="$vo.city_id">selected</eq>>{$vo.city_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>地区</label>
+                  <select class="form-control" name="areaid" id="area">
+                       <volist name="area" id="vo">
+                    <option value="{$vo.area_id}" <eq name="funding.area_id" value="$vo.area_id">selected</eq>>{$vo.area_name}</option>
+                    </volist>
+                  </select>
+                </div>   
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                  <input type="hidden" name="fundingid" value="{$funding.funding_id}">
+                <button type="submit" class="btn btn-primary">提交</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+        </div>
+        <!--/.col (right) -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+<include file="Common/footer"/>
+<script>
+$('#province').change(function(){
+            var id = $('#province').val();
+            $.ajax({
+                url:"{:U('findAreaInfo')}",
+                data:"pid="+id,
+                type:"get",
+                dataType:"json",
+                async:"false",
+                success:function(data){
+                  if(data.status){
+                        $('#city').html(data.content);
+                    }
+                },
+            });
+        });
+$('#city').change(function(){
+            var id = $('#city').val();
+            $.ajax({
+                url:"{:U('findAreaInfo')}",
+                data:"cid="+id,
+                type:"get",
+                dataType:"json",
+                async:"false",
+                success:function(data){
+                  if(data.status){
+                        $('#area').html(data.content);
+                    }
+                },
+            });
+        });
+</script>

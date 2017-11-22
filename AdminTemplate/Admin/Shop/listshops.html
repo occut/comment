@@ -1,0 +1,71 @@
+<include file="Common/header"/>
+<include file="Common/left"/>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            企业店铺列表
+
+        </h1>
+        <ol class="breadcrumb">
+            <li><i class="fa fa-dashboard"></i> 首页</li>
+            <li>信息管理</li>
+            <li class="active">企业店铺列表</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title"><a href="#"><button type="button" class="btn btn-block btn-primary">企业店铺列表</button></a></h3>
+                        <h3 class="box-title"><a href="{:U('Shop/addShop')}"><button type="button" class="btn btn-block btn-default">新增企业店铺</button></a></h3>
+                       
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr class="tng">
+                                    <th>ID</th>
+                                    <th>店铺logo</th>
+                                    <th>店铺状态</th>                                  
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="shop" id="la">
+                                <tr class="tnd">
+                                    <td>{$la.shop_id}</td>
+                                    <td><empty name="la.shop_logo">无图<else/><img id="imgheight" src="{$la.shop_logo}"></empty></td>
+                                    <td><switch name="la.shop_status"><case value="1">审核中</case><case value="2">审核成功</case><case value="3">审核失败</case></switch></td>
+                             <td>
+                                 <a href="{:U('Shop/editShop',array('shopid'=>$la['shop_id']))}">编辑</a>
+                            <a href="javascript:if(confirm('确实要删除吗?'))location='{:U('Shop/deleteShop',array('shopid'=>$la['shop_id']))}'">删除</a>                                                 
+                            </td>
+                            </tr>
+                         </volist>
+                            </tbody>
+                        </table>
+                     <div class="pagepadding">               
+                <div class="col-sm-5"><div aria-live="polite" role="status" id="example2_info" class="dataTables_info">共{$count}条</div></div><div class="col-sm-7"><div id="example2_paginate" class="dataTables_paginate paging_simple_numbers"><ul class="pagination">{$page}</ul></div></div>
+                </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Content Wrapper. Contains page content -->
+
+<!-- /.box -->
+<include file="Common/footer"/>
+

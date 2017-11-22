@@ -1,0 +1,61 @@
+<include file="Common/header"/>
+<include file="Common/left"/>
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        新增省份
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> 首页</li>
+        <li>系统配置</li>
+        <li class="active">新增省份</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="box">
+              <div class="box-header">
+                       <h3 class="box-title"><a href="{:U('Config/listAreas')}"><button type="button" class="btn btn-block btn-default">地区管理</button></a></h3>
+                        <h3 class="box-title"><a href="#"><button type="button" class="btn btn-block btn-primary">新增省份</button></a></h3>
+                        <h3 class="box-title"><a href="{:U('Config/addCity')}"><button type="button" class="btn btn-block btn-default">新增城市</button></a></h3>
+                         <h3 class="box-title"><a href="{:U('Config/addArea')}"><button type="button" class="btn btn-block btn-default">新增地区</button></a></h3>
+                    </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form" method="post" action="{:U('Config/addProvince')}">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">省份名称</label>
+                  <input type="text" name="provincename" class="form-control" id="exampleInputEmail1" placeholder="请填写省份名称">
+                </div>
+                    <div class="form-group">
+                  <label for="exampleInputEmail1">省份全拼</label>
+                  <input type="text" name="provincespelling" class="form-control" id="exampleInputEmail1" placeholder="请填写省份首字母大写全拼">
+                    </div>
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">提交</button>
+              </div>
+            </form>
+          </div>
+          </div>
+          <!-- /.box -->
+        </div>
+        <!--/.col (right) -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+<include file="Common/footer"/>

@@ -1,0 +1,131 @@
+<include file="Common/header"/>
+<include file="Common/left"/>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            产品管理列表
+
+        </h1>
+        <ol class="breadcrumb">
+            <li><i class="fa fa-dashboard"></i> 后台首页</li>
+            <li>信息管理</li>
+            <li class="active">产品管理</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+
+                        <h3 class="box-title"><a href="{:U('Product/showproduct')}"><button type="button" class="btn btn-block btn-primary">产品列表</button></a></h3>
+                        <h3 class="box-title"><a href="{:U('Product/addProduct')}"><button type="button" class="btn btn-block btn-default">添加产品</button></a></h3>
+
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead >
+                            <tr class="tng">
+                                <th style="width:10%">ID</th>
+                                <th style="width:10%">产品名称</th>
+                                <th style="width:15%">产品标题</th>
+                                <th style="width:10%">图片</th>
+                                <th style="width:10%">产品分组</th>
+                                <th style="width:10%">发布时间</th>
+                                <th style="width:10%">是否显示</th>
+                                <th style="width:25%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="product" id="vo">
+                                <tr class="tnd">
+
+                                    <td><span>{$vo.product_id}</span></td>
+                                    <td><span>{$vo.product_name}</span></td>
+                                    <td><span>{$vo.product_title}</span></td>
+
+                                    <empty name="vo.product_pic">
+                                        <td><span>无图</span></td>
+                                        <else />
+                                        <td><span><img src='{$vo.product_pic}' style="height:35px;"></span></td>
+                                    </empty>
+
+
+                                    <volist name="productgroup" id="voo">
+                                        <eq name="vo.group_id" value="$voo.group_id">
+                                            <td><span>{$voo.group_name}</span></td>
+                                        </eq>
+                                    </volist>
+
+
+                                    <td><span>{$vo.product_addtime|date="Y-m-d H:s:i",###}</span></td>
+                                    <td><eq name="vo.is_hidden" value="0"><a href="#" onclick="ishide(this)">是</a><else/><a href="#" onclick="ishide(this)" style="color: red">否</a></eq></td>
+                                    <input type="hidden" value="{$vo.product_id}">
+
+
+                                    <td>
+                                        <a href="{:U('Product/editProduct',array('productid'=>$vo['product_id']))}">编辑</a>
+                                        <a href="javascript:if(confirm('确实要删除吗?'))location='{:U('Product/deleteProduct',array('productid'=>$vo['product_id']))}'">删除</a>
+
+                                    </td>
+                                </tr>
+
+                            </volist>
+                            </tbody>
+                        </table>
+                        <div class="pagepadding">
+                            <div class="col-sm-5"><div aria-live="polite" role="status" id="example2_info" class="dataTables_info">共{$count}条</div></div><div class="col-sm-7"><div id="example2_paginate" class="dataTables_paginate paging_simple_numbers"><ul class="pagination">{$page}</ul></div></div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Content Wrapper. Contains page content -->
+
+<!-- /.box -->
+<include file="Common/footer"/>
+
+<script>
+    function ishide(obj){
+        var ishidden=$(obj).html();
+        var pid =$(obj).parent('td').next().val();
+        console.log(pid);
+        if(ishidden =="是"){
+            var ishides =1
+        }
+        else if(ishidden=="否"){
+            var ishides = 0
+        }
+        $.ajax({
+            url:"{:U('Product/isHidden')}",
+            type:"post",
+            dataType: "json",
+            data:{'productid':pid ,'ishidden':ishides },
+            async: "false",
+            success:function(ishiddens){
+                if(ishidden=="是"){
+                    $(obj).html('否');
+                    $(obj).css('color','red');
+                }
+                if(ishidden=="否"){
+                    $(obj).html('是');
+                    $(obj).css('color','#3c8dbc');
+
+                }
+            }
+
+        })
+    }
+</script>

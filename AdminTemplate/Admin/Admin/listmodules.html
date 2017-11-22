@@ -1,0 +1,74 @@
+<include file="Common/top"/>
+<include file="Common/nav"/>
+<div class="layui-body">
+    <div class="content-wrapper" style = "margin-left:1px ;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            模块列表
+
+        </h1>
+        <!--<ol class="breadcrumb">-->
+            <!--<li><i class="fa fa-dashboard"></i> 首页</li>-->
+            <!--<li>用户中心</li>-->
+            <!--<li class="active">模块管理</li>-->
+        <!--</ol>-->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title"><a href="#"><button type="button" class="btn btn-block btn-primary">模块列表</button></a></h3>
+                        <h3 class="box-title"><a href="{:U('Admin/addmodule')}"><button type="button" class="btn btn-block btn-default">添加模块</button></a></h3>
+                       
+                    </div>
+            <!-- /.box-header -->
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr class="tng">
+                                    <th>ID</th>
+                                    <th>模块名</th>  
+                                    <th>模块URL</th>  
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="modules" id="vo">  
+                                <tr class="tnd">
+                                    <td>{$vo.module_id}</td>
+                                    <td>{$vo.module_name}</td>  
+                                    <td>{$vo.module_url}</td>  
+                                    <td>
+                                        <a href="{:U('Admin/editModule',array('moduleid'=>$vo['module_id'],'gd'=>$groupId,'md'=>$menuId))}">编辑</a>
+                                        <a href="javascript:if(confirm('确实要删除吗?'))location='{:U('Admin/deleteModule',array('moduleid'=>$vo['module_id'],'gd'=>$groupId,'md'=>$menuId))}'">删除</a>
+                                       
+
+                                    </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                     <div class="pagepadding">               
+                <div class="col-sm-5"><div aria-live="polite" role="status" id="example2_info" class="dataTables_info">共{$count}条</div></div><div class="col-sm-7"><div id="example2_paginate" class="dataTables_paginate paging_simple_numbers"><ul class="pagination">{$page}</ul></div></div>
+                </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Content Wrapper. Contains page content -->
+
+<!-- /.box -->
+<include file="Common/button"/>

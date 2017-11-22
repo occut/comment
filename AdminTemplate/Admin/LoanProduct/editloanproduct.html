@@ -1,0 +1,200 @@
+<include file="Common/header"/>
+<include file="Common/left"/>
+<!--引用编辑器-->
+ <script type="text/javascript" src="{$resource}editor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="{$resource}editor/ueditor.all.js"></script>
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var ue = UE.getEditor('container');
+    </script>
+<!--引用编辑器-->
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        编辑贷款产品
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> 首页</li>
+        <li>信息管理</li>
+        <li class="active">编辑贷款产品</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="box">
+              <div class="box-header">
+                        <h3 class="box-title"><a href="{:U('LoanProduct/listLoanProducts')}"><button type="button" class="btn btn-block btn-default">贷款产品列表</button></a></h3>
+                        <h3 class="box-title"><a href="#"><button type="button" class="btn btn-block btn-primary">编辑贷款产品</button></a></h3>                      
+                    </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form" method="post" action="{:U('LoanProduct/editLoanProduct')}">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">贷款标题</label>
+                  <input type="text" name="loansname" class="form-control" id="exampleInputEmail1" placeholder="请填写贷款标题" value="{$loans.loans_name}">
+                </div>
+                  <div class="form-group">
+                  <label for="t3">项目推荐的内容</label>
+                  <script id="container" name="loanscontent" type="text/plain" style="height:300px">
+                      {$loans.loans_content}
+                                        </script>                 
+                </div>
+                  <div class="form-group">
+                  <label for="exampleInputEmail1">联系人</label>
+                  <input type="text" name="contactlinkman" class="form-control" id="exampleInputEmail1" placeholder="请填写联系人" value="{$loans.contact_linkman}">
+                </div> 
+                  <div class="form-group">
+                  <label for="exampleInputEmail1">联系电话</label>
+                  <input type="text" name="contactphone" class="form-control" id="exampleInputEmail1" placeholder="请填写联系电话" value="{$loans.contact_phone}">
+                </div>
+                  <div class="form-group">
+                  <label for="exampleInputEmail1">浏览次数</label>
+                  <input type="text" name="viewtime" class="form-control" id="exampleInputEmail1" placeholder="请填写浏览次数" value="{$loans.view_time}">
+                </div>
+                  <div class="form-group">
+                <label>增加时间:</label>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input class="form-control pull-right" id="datepicker" type="text" value="{$loans.add_time|date='m/d/Y',###}" name="addtime">
+                </div>
+                <!-- /.input group -->
+              </div>                   
+                  <!--div class="form-group">
+                  <label for="exampleInputEmail1">金额描述</label>
+                  <input type="text" name="loansamount" class="form-control" id="exampleInputEmail1" placeholder="请填写金额描述" value="{$loans.loans_amount}">
+                </div-->                                    
+                  <div class="form-group">
+                  <label>金额分类</label>
+                  <select class="form-control" name="loanamountid">
+                    <volist name="loanamount" id="rw">
+                        <option value="{$rw.amount_id}" <eq name="rw.amount_id" value="$loans.loan_amount_id">selected</eq>>{$rw.amount_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>还款方式</label>
+                  <select class="form-control" name="reimbursementwayid">
+                    <volist name="reimbursementway" id="rw">
+                        <option value="{$rw.way_id}" <eq name="rw.way_id" value="$loans.reimbursement_way_id">selected</eq>>{$rw.way_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>还款期限</label>
+                  <select class="form-control" name="reimbursementtimeid">
+                    <volist name="reimbursementtime" id="rt">
+                    <option value="{$rt.time_id}" <eq name="rt.time_id" value="$loans.reimbursement_time_id">selected</eq>>{$rt.time_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>贷款种类</label>
+                  <select class="form-control" name="loanclassid">
+                    <volist name="loanclass" id="fc">
+                    <option value="{$fc.class_id}" <eq name="fc.class_id" value="$loans.loan_class_id">selected</eq>>{$fc.class_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>贷款方式</label>
+                  <select class="form-control" name="loantypeid">
+                    <volist name="loantype" id="ft">
+                    <option value="{$ft.type_id}" <eq name="ft.type_id" value="$loans.loan_type_id">selected</eq>>{$ft.type_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>所属银行</label>
+                  <select class="form-control" name="bankid">
+                    <volist name="bank" id="bk">
+                    <option value="{$bk.bank_id}" <eq name="bk.bank_id" value="$loans.bank_id">selected</eq>>{$bk.bank_name}</option>
+                    </volist>
+                  </select>
+                </div>                       
+                <div class="form-group">
+                  <label>省份</label>
+                  <select class="form-control" name="provinceid" id="province">
+                    <volist name="province" id="vo">
+                        <option value="{$vo.province_id}" <eq name="vo.province_id" value="$loans.province_id">selected</eq>>{$vo.province_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>城市</label>
+                  <select class="form-control" name="cityid" id="city">                      
+                       <volist name="city" id="vo">
+                    <option value="{$vo.city_id}" <eq name="loans.city_id" value="$vo.city_id">selected</eq>>{$vo.city_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>地区</label>
+                  <select class="form-control" name="areaid" id="area">
+                       <volist name="area" id="vo">
+                    <option value="{$vo.area_id}" <eq name="loans.area_id" value="$vo.area_id">selected</eq>>{$vo.area_name}</option>
+                    </volist>
+                  </select>
+                </div>   
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                  <input type="hidden" name="loansid" value="{$loans.loans_id}">
+                <button type="submit" class="btn btn-primary">提交</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+        </div>
+        <!--/.col (right) -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+<include file="Common/footer"/>
+<script>
+$('#province').change(function(){
+            var id = $('#province').val();
+            $.ajax({
+                url:"{:U('findAreaInfo')}",
+                data:"pid="+id,
+                type:"get",
+                dataType:"json",
+                async:"false",
+                success:function(data){
+                  if(data.status){
+                        $('#city').html(data.content);
+                    }
+                },
+            });
+        });
+$('#city').change(function(){
+            var id = $('#city').val();
+            $.ajax({
+                url:"{:U('findAreaInfo')}",
+                data:"cid="+id,
+                type:"get",
+                dataType:"json",
+                async:"false",
+                success:function(data){
+                  if(data.status){
+                        $('#area').html(data.content);
+                    }
+                },
+            });
+        });
+</script>

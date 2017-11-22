@@ -1,0 +1,173 @@
+<include file="Common/header"/>
+<include file="Common/left"/>
+<!--引用编辑器-->
+ <script type="text/javascript" src="{$resource}editor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="{$resource}editor/ueditor.all.js"></script>
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var ue = UE.getEditor('container');
+    </script>
+<!--引用编辑器-->
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        编辑POS机
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> 首页</li>
+        <li>信息管理</li>
+        <li class="active">编辑POS机</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="box">
+              <div class="box-header">
+                        <h3 class="box-title"><a href="{:U('Pos/listposes')}"><button type="button" class="btn btn-block btn-default">POS机列表</button></a></h3>                      
+                        <h3 class="box-title"><a href="#"><button type="button" class="btn btn-block btn-primary">编辑POS机</button></a></h3>
+                    </div>
+            <!-- /.box-header -->
+            <!-- form stavo -->
+            <form role="form" method="post" action="{:U('Pos/editPos')}">
+              <input type="hidden" name="posid" value="{$pos.pos_id}">  
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">POS标题</label>
+                  <input type="text" name="posname" value="{$pos.pos_name}" class="form-control" id="exampleInputEmail1" placeholder="请填写POS标题">
+                </div>
+                  <div class="form-group">
+                  <label for="t3">POS信息</label>
+                  <script id="container" name="poscontent" type="text/plain" style="height:300px">{$pos.pos_content}</script>                 
+                </div>
+
+                  <div class="form-group">
+                  <label for="contactphone">联系电话</label>
+                  <input type="text" name="contactphone" value="{$pos.contact_phone}"  class="form-control" id="contactphone"  placeholder="请填写联系电话">
+                </div> 
+                  <div class="form-group">
+                  <label for="contactlinkman">联系人</label>
+                  <input type="text" name="contactlinkman" value="{$pos.contact_linkman}" class="form-control" id="contactlinkman" placeholder="请填写联系人" value="">
+                </div>
+                  <div class="form-group">
+                                <label for="exampleInputEmail1">浏览次数</label>
+                                <input type="text" name="viewtime" class="form-control" id="exampleInputEmail1" placeholder="请填写浏览次数" value="{$pos.view_time}">
+                            </div>
+                            <div class="form-group">
+                                <label>增加时间:</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input class="form-control pull-right" id="datepicker" type="text" value="{$pos.add_time|date='m/d/Y',###}" name="addtime">
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                  <div class="form-group">
+                  <label>费率标准</label>
+                  <select class="form-control" name="ratestandardid">
+                    <volist name="ratestandards" id="vo">
+                        <option value="{$vo.standard_id}"  <eq name="vo.standard_id"  value="$pos.rate_standard_id">selected</eq>>{$vo.standard_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>封顶收费</label>
+                  <select class="form-control" name="capchargeid">
+                    <volist name="capcharge" id="vo">
+                    <option value="{$vo.charge_id}" <eq name="vo.charge_id"  value="$pos.cap_charge_id">selected</eq>>{$vo.charge_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>机器类型</label>
+                  <select class="form-control" name="machinetypeid">
+                    <volist name="machinetype" id="vo">
+                    <option value="{$vo.type_id}" <eq name="vo.type_id"  value="$pos.machine_type_id">selected</eq>>{$vo.type_name}</option>
+                    </volist>
+                  </select>
+                </div>
+
+                 <div class="form-group">
+                  <label>省份</label>
+                  <select class="form-control" name="provinceid" id="province">
+                    <volist name="province" id="vo">
+                        <option value="{$vo.province_id}" <eq name="vo.province_id" value="$pos.province_id">selected</eq>>{$vo.province_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>城市</label>
+                  <select class="form-control" name="cityid" id="city">                      
+                       <volist name="city" id="vo">
+                    <option value="{$vo.city_id}" <eq name="pos.city_id" value="$vo.city_id">selected</eq>>{$vo.city_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>地区</label>
+                  <select class="form-control" name="areaid" id="area">
+                       <volist name="area" id="vo">
+                    <option value="{$vo.area_id}" <eq name="pos.area_id" value="$vo.area_id">selected</eq>>{$vo.area_name}</option>
+                    </volist>
+                  </select>
+                </div>   
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                  <input type="hidden" name="posid" value="{$pos.pos_id}">
+                <button type="submit" class="btn btn-primary">提交</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+        </div>
+        <!--/.col (right) -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+<include file="Common/footer"/>
+<script>
+$('#province').change(function(){
+            var id = $('#province').val();
+            $.ajax({
+                url:"{:U('findAreaInfo')}",
+                data:"pid="+id,
+                type:"get",
+                dataType:"json",
+                async:"false",
+                success:function(data){
+                  if(data.status){
+                        $('#city').html(data.content);
+                    }
+                },
+            });
+        });
+$('#city').change(function(){
+            var id = $('#city').val();
+            $.ajax({
+                url:"{:U('findAreaInfo')}",
+                data:"cid="+id,
+                type:"get",
+                dataType:"json",
+                async:"false",
+                success:function(data){
+                  if(data.status){
+                        $('#area').html(data.content);
+                    }
+                },
+            });
+        });
+</script>

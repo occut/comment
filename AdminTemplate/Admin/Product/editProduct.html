@@ -1,0 +1,192 @@
+<include file="Common/header"/>
+<!-- Left side column. contains the logo and sidebar -->
+<include file="Common/left"/>
+<!--引用编辑器-->
+<script type="text/javascript" src="{$resource}editor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="{$resource}editor/ueditor.all.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('container');
+</script>
+<!--引用编辑器-->
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            编辑产品
+
+        </h1>
+        <ol class="breadcrumb">
+            <li><i class="fa fa-dashboard"></i> 首页</li>
+            <li>信息管理</li>
+            <li class="active">产品管理</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#fa-icons" data-toggle="tab">基本设置</a></li>
+                        <li><a href="#seoInfor" data-toggle="tab">seo信息</a></li>
+                        <li><a href="#auxiliaryInfor" data-toggle="tab">附属信息</a></li>
+
+                    </ul>
+                    <div class="tab-content">
+                        <!--start 基本配置 -->
+                        <div class="tab-pane active" id="fa-icons">
+                            <section id="new">
+                                <div class="row fontawesome-icon-list">
+                                    <form role="form" method="post" action="{:U('Product/editProduct')}" enctype="multipart/form-data">
+                                        <div class="box-body" style="margin-left:15px;">
+                                            <input type="hidden" name="productid" value="{$product.product_id}">
+                                            <div class="form-group">
+                                                <label for="productname">产品名称</label>
+                                                <input type="text" class="form-control" name="productname" value="{$product.product_name}" autofocus id="productname" placeholder="请输入产品名">
+                                            </div>
+
+                                            <!-- /.form-group -->
+                                            <div class="form-group">
+                                                <label>产品分组</label>
+                                                <select class="form-control select2" name="groupid">
+                                                    <volist name="productgroup" id="vo">
+                                                        <option value="{$vo.group_id}" <eq name="vo.group_id" value="$product.group_id">selected="selected"</eq>>{$vo.group_name}</option>
+                                                    </volist>
+                                                </select>
+                                            </div>
+                                            <!-- /.form-group -->
+
+
+                                            <div class="form-group">
+                                                <label for="productcontent">产品内容</label>
+                                                <script id="container" name="productcontent" type="text/plain" style="height:300px">{$product.product_content|htmlspecialchars_decode}</script>
+                                            </div>
+                                            <!--添加参数-->
+                                            <div class="form-group" id="isinner" >
+                                                <label for="exampleInputEmail1">添加参数</label>
+                                                <div class="input-group input-group-sm">
+                                                    <input class="form-control" placeholder="添加参数" id="paramconfigname"  type="text" value="{$paramconfig.config_name}">
+                                                    <span class="input-group-btn">
+                                                          <button type="button" class="btn btn-info btn-flat btn-primary btn-lg" data-toggle="modal" data-target="#myModal">选择参数</button>
+                                                    </span>
+                                                    <input type="hidden" name="paramconfigid" id="paramconfigid" value="{$product.param_config_id}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">是否显示</label>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="ishidden" class="iradio_flat-green" value="0" <eq name="product.is_hidden" value="0">checked</eq>>是
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="ishidden" class="flat-red" value="1" <eq name="product.is_hidden" value="1">checked</eq>>否
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <!-- /.form group -->
+                                        </div>
+                                        <!-- /.box-body -->
+                                </div>
+                                <div class="box-footer">
+                                    <input type="hidden" name="configid" value="{$webconfig.config_id}">
+                                    <button type="submit" class="btn btn-primary">提交</button>
+                                </div>
+                            </section>
+                        </div>
+                        <!-- end基本配置 -->
+
+                        <!-- start seo信息-->
+                        <div class="tab-pane" id="seoInfor">
+
+                            <div class="box-body">
+
+                                <div class="form-group">
+                                    <label for="producttitle">产品标题</label>
+                                    <input type="text" class="form-control" name="producttitle" value="{$product.product_title}" id="producttitle" placeholder="请输入产品标题">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="productkeywords">产品关键字</label>
+                                    <input type="text" class="form-control" name="productkeywords" value="{$product.product_keywords}" id="productkeywords" placeholder="请输入产品关键字">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="productdescription">产品描述</label>
+                                    <textarea class="form-control" rows="3" id="productdescription" placeholder="请输入产品描述" name="productdescription">{$product.product_description}</textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="box-footer">
+                                <input type="hidden" name="configid" value="{$webconfig.config_id}">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </div>
+
+                        </div> <!-- end seo信息-->
+
+
+
+                        <!-- start 上传设置--><div class="tab-pane" id="auxiliaryInfor">
+                        <div class="box-body">
+                            <!-- radio -->
+                            <!--logo-->
+                            <div class="form-group">
+                                <label for="art">产品缩略图</label>
+                                <input type="file" value="{$product.product_pic}"  name="productpic" id="art" />
+                                <notempty name="product.product_pic"><div id="imgdiv"><img src="{$product.product_pic}" id="img"></div><else />
+                                    <div id="imgdiv">无图</div>
+                                </notempty>
+                                <p class="help-block">图片上传的大小不应大于3M</p>
+                            </div>
+                            <!--logo-->
+                            <div class="form-group">
+                                <label for="productbrowse">浏览量</label>
+                                <input type="text" class="form-control" name="productbrowse" value="{$product.product_browse}" id="productbrowse" placeholder="请输入浏览量">
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label for="productauthor">作者</label>
+                                <input type="text" class="form-control" name="productauthor" value="{$product.product_author}"  id="productauthor" placeholder="请输入产品作者">
+                            </div>
+
+                            <!-- Date and time range -->
+                            <div class="form-group">
+                                <label>发布时间:</label>
+                                <div>
+                                    <input type="text" class="some_class form-control" name="articleaddtime" value='{$product.product_addtime|date="Y-m-d H:s:i",###}'>
+                                </div>
+                            </div>
+                            <!-- /.form group -->
+
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <input type="hidden" name="configid" value="{$webconfig.config_id}">
+                            <button type="submit" class="btn btn-primary">提交</button>
+                        </div>
+                    </div> <!-- end 上传设置-->
+                        <!-- /#ion-icons -->
+
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<include file="Common/footer"/>
+<include file="Product/productparam"/>

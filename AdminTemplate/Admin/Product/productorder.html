@@ -1,0 +1,100 @@
+<include file="Common/header"/>
+<!-- Left side column. contains the logo and sidebar -->
+<include file="Common/left"/>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            订单详情
+        </h1>
+        <ol class="breadcrumb">
+            <li><i class="fa fa-dashboard"></i> 首页</li>
+            <li>信息管理</li>
+            <li class="active">留言管理</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#fa-icons" data-toggle="tab">基本设置</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <!--start 基本配置 -->
+                        <div class="tab-pane active" id="fa-icons">
+                            <section id="new">
+                                <div class="row fontawesome-icon-list">
+                                        <div class="box-body" style="margin-left:15px;">
+                                            <input type="hidden" name="productorderid" value="{$productorder.order_id}">
+                                            <div class="form-group">
+                                                <label for="ordername">联系人</label>
+                                                <input type="text" class="form-control"  value="{$productorder.order_link}" autofocus id="productordername" readonly="readonly">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="productordertel">产品名</label>
+                                                <input type="text" class="form-control"  value="{$product.product_name}" readonly="readonly">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="productordertel">订单数量</label>
+                                                <input type="text" class="form-control"  value="{$productorder.order_size}" readonly="readonly">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="productordertel">联系地址</label>
+                                                <input type="text" class="form-control"  value="{$productorder.order_address}" readonly="readonly">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="productordertel">联系方式</label>
+                                                <input type="text" class="form-control"  value="{$productorder.order_tel}" readonly="readonly">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="productorderemail">邮箱</label>
+                                                <input type="text" class="form-control"  value="{$productorder.order_email}" readonly="readonly" >
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="productorderqq">qq</label>
+                                                <input type="text" class="form-control" value="{$productorder.order_qq}" readonly="readonly">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="productorderweixin">微信</label>
+                                                <input type="text" class="form-control" value="{$productorder.order_wenxi}" readonly="readonly" >
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="productorderweixin">订单备注</label>
+                                                <input type="text" class="form-control"  value="{$productorder.order_remarks}" readonly="readonly" >
+                                            </div>
+                                            <div class="form-group">
+                                                <label>下单时间:</label>
+                                                    <input class="form-control"  type="text" value="{$productorder.order_addtime|date='Y-m-d',###}" name="productorderaddtime" readonly="readonly">
+                                            </div>
+                                            <!-- /.form-group -->
+                                            <!-- /.form group -->
+                                        </div>
+                                        <!-- /.box-body -->
+                                        </div>
+                            </section>
+                        </div>
+                        <!-- end基本配置 -->
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div> <!-- end 上传设置-->
+                        <!-- /#ion-icons -->
+
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<include file="Common/footer"/>

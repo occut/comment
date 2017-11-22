@@ -1,0 +1,234 @@
+<include file="Common/header"/>
+<include file="Common/left"/>
+<!--引用编辑器-->
+ <script type="text/javascript" src="{$resource}editor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="{$resource}editor/ueditor.all.js"></script>
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var ue = UE.getEditor('container');
+    </script>
+<!--引用编辑器-->
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        编辑企业招聘
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> 首页</li>
+        <li>信息管理</li>
+        <li class="active">编辑企业招聘</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="box">
+              <div class="box-header">
+                        <h3 class="box-title"><a href="{:U('Company/listCompanys')}"><button type="button" class="btn btn-block btn-default">企业招聘列表</button></a></h3>                      
+                        <h3 class="box-title"><a href="#"><button type="button" class="btn btn-block btn-primary">编辑企业招聘</button></a></h3>
+                    </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form" method="post" action="{:U('Company/editCompany')}">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">求职标题</label>
+                  <input type="text" name="companyname" class="form-control" id="exampleInputEmail1" placeholder="请填写求职标题" value="{$company.company_name}">
+                </div>
+                  <div class="form-group">
+                  <label for="t3">求职信息</label>
+                  <script id="container" name="companycontent" type="text/plain" style="height:300px">{$company.company_content}</script>
+                </div>
+                   <div class="form-group">
+                  <label for="exampleInputEmail1">联系人</label>
+                  <input type="text" name="contactlinkman" class="form-control" id="exampleInputEmail1" placeholder="请填写联系人" value="{$company.contact_linkman}">
+                </div>
+                   <div class="form-group">
+                  <label for="exampleInputEmail1">联系电话</label>
+                  <input type="text" name="contactphone" class="form-control" id="exampleInputEmail1" placeholder="请填写联系电话" value="{$company.contact_phone}">
+                </div>
+                   <div class="form-group">
+                  <label for="exampleInputEmail1">浏览次数</label>
+                  <input type="text" name="viewtime" class="form-control" id="exampleInputEmail1" placeholder="请填写浏览次数" value="{$company.view_time}">
+                </div>
+                  <div class="form-group">
+                <label>增加时间:</label>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input class="form-control pull-right" id="datepicker" type="text" value="{$company.add_time|date='m/d/Y',###}" name="addtime">
+                </div>
+                <!-- /.input group -->
+              </div>
+                  <div class="form-group">
+                  <label for="exampleInputEmail1">招聘人数</label>
+                  <input type="text" name="recruitmentnumber" class="form-control" id="exampleInputEmail1" placeholder="请填写招聘人数" value="{$company.recruitment_number}">
+                </div>
+                  <div class="form-group">
+                  <label for="exampleInputEmail1">工作时间</label>
+                  <input type="text" name="worktime" class="form-control" id="exampleInputEmail1" placeholder="请填写工作时间" value="{$company.work_time}">
+                </div>
+                  <div class="form-group">
+                  <label for="exampleInputEmail1">福利待遇</label>
+                  <input type="text" name="welfaretreatment" class="form-control" id="exampleInputEmail1" placeholder="请填写福利待遇" value="{$company.welfare_treatment}">
+                </div>
+                  <div class="form-group">
+                  <label for="exampleInputEmail1">招聘邮箱</label>
+                  <input type="email" name="recruitmentmail" class="form-control" id="exampleInputEmail1" placeholder="请填写招聘邮箱" value="{$company.recruitment_mail}">
+                </div>
+                  <div class="form-group">
+                   <label for="exampleInputEmail1">性别</label>
+                <div class="radio">
+                    <label>
+                  <input type="radio" name="sex" class="iradio_flat-green" value="2" <eq name="company.sex" value="2">checked</eq>>无要求
+                </label>
+                <label>
+                  <input type="radio" name="sex" class="iradio_flat-green" value="1" <eq name="company.sex" value="1">checked</eq>>男
+                </label>
+                <label>
+                  <input type="radio" name="sex" class="flat-red" value="0" <eq name="company.sex" value="0">checked</eq>>女
+                </label>
+                </div>
+              </div>
+                  <div class="form-group">
+                  <label>职位类别</label>
+                  <select class="form-control" name="jobcategoryid">
+                      <option>请选择职位类别</option>
+                    <volist name="jobcategory" id="vo">
+                    <option value="{$vo.category_id}" <eq name="company.job_category_id" value="$vo.category_id">selected</eq>>{$vo.category_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                   <div class="form-group">
+                  <label>行业类别</label>
+                  <select class="form-control" name="worktypeid">
+                    <option vaule="{$worktype.work_id}" selected>{$worktype.work_name}</option>
+                    <?php echo getworktypeoptions(0);?>
+                  </select>
+                </div>
+                   <div class="form-group">
+                  <label>薪资标准</label>
+                  <select class="form-control" name="salarystandardid">
+                      <option>请选择薪资标准</option>
+                    <volist name="salarystandard" id="vo">
+                    <option value="{$vo.standard_id}" <eq name="company.salary_standard_id" value="$vo.standard_id">selected</eq>>{$vo.standard_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>公司类型</label>
+                  <select class="form-control" name="companytypeid"> 
+                    <volist name="companytype" id="vo">
+                        <option value="{$vo.type_id}" <eq name="company.company_type_id" value="$vo.type_id">selected</eq>>{$vo.type_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>学历</label>
+                  <select class="form-control" name="educationid">
+                    <volist name="education" id="vo">
+                        <option value="{$vo.education_id}" <eq name="company.education_id" value="$vo.education_id">selected</eq>>{$vo.education_name}</option>
+                    </volist>
+                  </select>
+                </div>                  
+                  <div class="form-group">
+                  <label>年龄</label>
+                  <select class="form-control" name="ageid">                 
+                    <volist name="age" id="vo">
+                    <option value="{$vo.age_id}" <eq name="company.age_id" value="$vo.age_id">selected</eq>>{$vo.age_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>工作经验</label>
+                  <select class="form-control" name="workexperienceid">
+                    <volist name="workexperience" id="vo">
+                    <option value="{$vo.experience_id}"  <eq name="company.work_experience_id" value="$vo.experience_id">selected</eq>>{$vo.experience_name}</option>
+                    </volist>
+                  </select>
+                </div>               
+                  <div class="form-group">
+                  <label>省份</label>
+                  <select class="form-control" name="provinceid" id="province">
+                    <volist name="province" id="vo">
+                    <option value="{$vo.province_id}" <eq name="company.province_id" value="$vo.province_id">selected</eq>>{$vo.province_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>城市</label>
+                  <select class="form-control" name="cityid" id="city"> 
+                       <option >请选择省份</option>
+                       <volist name="city" id="vo">
+                    <option value="{$vo.city_id}" <eq name="company.city_id" value="$vo.city_id">selected</eq>>{$vo.city_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label>地区</label>
+                  <select class="form-control" name="areaid" id="area">
+                       <volist name="area" id="vo">
+                    <option value="{$vo.area_id}" <eq name="company.area_id" value="$vo.area_id">selected</eq>>{$vo.area_name}</option>
+                    </volist>
+                  </select>
+                </div>   
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                  <input type="hidden" name="companyid" value="{$company.company_id}">
+                <button type="submit" class="btn btn-primary">提交</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+        </div>
+        <!--/.col (right) -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+<include file="Common/footer"/>
+<script>
+$('#province').change(function(){
+            var id = $('#province').val();
+            $.ajax({
+                url:"{:U('findAreaInfo')}",
+                data:"pid="+id,
+                type:"get",
+                dataType:"json",
+                async:"false",
+                success:function(data){
+                  if(data.status){
+                        $('#city').html(data.content);
+                    }
+                },
+            });
+        });
+$('#city').change(function(){
+            var id = $('#city').val();
+            $.ajax({
+                url:"{:U('findAreaInfo')}",
+                data:"cid="+id,
+                type:"get",
+                dataType:"json",
+                async:"false",
+                success:function(data){
+                  if(data.status){
+                        $('#area').html(data.content);
+                    }
+                },
+            });
+        });
+</script>

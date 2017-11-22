@@ -1,0 +1,72 @@
+
+<style type="text/css">
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        border-top: 0 solid #f4f4f4;
+    }
+</style>
+<div class="modal modal fade" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header btn-primary" style="padding-bottom: 8px;padding-top: 8px">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">参数列表</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="box-body" style="overflow-y: scroll; height: 300px" width="600px" >
+                        <input type='hidden' id='current_page'/>
+                        <input type='hidden' id='show_per_page'/>
+                        <table class="table" id="userlist">
+                            <tbody >
+
+                            </tbody>
+                        </table>
+                        <div>
+                            <div class="col-sm-5"><div aria-live="polite" role="status" id="usercout" class="dataTables_info"></div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers"><ul class="pagination" id="userpage"></ul></div></div>
+                        </div>
+                        <div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<script>
+    //调用url
+    $.ajax({
+        url: "{:U('Product/productparam')}",
+        type: "get",
+        dataType: "json",
+        async: "false",
+        success: function (userdata) {
+            if (userdata .status) {
+                $('#userlist tbody').html(userdata.content);
+            }
+        }
+    });
+
+</script>
+<script>
+//    $('chick').click(function(){
+//        var a= $(this).parent('td').next('td').html();
+//        var b=$(this).parent('td').prev('td').html();
+//        $('#paramconfigid').val(a);
+//        $('#paramconfigname').val(b);
+//        $('#myModal').modal('hide');
+//    });
+    function urllist(obj){
+        var a= $(obj).parent('td').next('td').html();
+        var b=$(obj).parent('td').prev('td').html();
+        $('#paramconfigid').val(a);
+        $('#paramconfigname').val(b);
+        $('#myModal').modal('hide');
+
+    }
+
+</script>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- <meta http-equiv='X-UA-Compatible' content='IE=edge'> -->
+     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/> -->
+    <title>微云控后台管理</title>
+    <!-- layui.css -->
+    <link href="{$resource}admin/plugin/layui/css/layui.css" rel="stylesheet" />
+    <!-- font-awesome.css -->
+    <link href="{$resource}admin/plugin/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- animate.css -->
+    <link href="{$resource}admin/css/animate.min.css" rel="stylesheet" />
+    <!-- 本页样式 -->
+    <link href="{$resource}admin/css/main.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
+    <link rel="stylesheet" href="{$resource}bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{$resource}dist/css/AdminLTE.min.css">
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <!--顶部-->
+    <div class="layui-header">
+        <div class="ht-console">
+            <div class="layui-main">
+                <!--<a href="#" class="logo" style = "font-size: 24px; padding-top:5px;"><b>后台管理</b>v1.3</a>-->
+                <!--<a href="#" class="logo" style = "font-size: 24px; padding-top:5px;">tom工作室(QQ群:516472075)</a>-->
+            </div>
+        </div>
+        <!-- 顶部右侧菜单 -->
+        <ul class="layui-nav top_menu">
+            <li class="layui-nav-item" pc>
+                <a href="javascript:;">
+                    <!--<img src="images/face.jpg" class="layui-circle" width="35" height="35">-->
+                    <cite>
+                        <span>当前账户：</span>
+                        <span class="hidden-xs">{$Think.session.adminName}</span>
+                    </cite>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd> <a href="{:U('Admin/listAdmins',array('gd'=>4,'md'=>67))}">管理员</a></dd>
+                    <dd> <a href="{:U('Admin/listRoles',array('gd'=>4,'md'=>68))}">角色</a></dd>
+                    <dd>  <a href="{:U('Admin/listModules',array('gd'=>4,'md'=>69))}">模块</a></dd>
+                    <dd> <a href="{:U('Admin/editPassword',array('gd'=>4,'md'=>70))}" >改密</a></dd>
+                    <dd><a href="{:U('Login/logout')}" >退出</a></dd>
+                </dl>
+            </li>
+            <li class="ht-nav-item layui-nav-item">
+                <a href="javascript:;" id="individuation"><i class="fa fa-tasks fa-fw" style="padding-right:5px;"></i>个性化</a>
+            </li>
+
+        </ul>
+
+    </div>

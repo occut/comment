@@ -1,0 +1,172 @@
+<include file="Common/top"/>
+<!-- Left side column. contains the logo and sidebar -->
+<include file="Common/nav"/>
+<!--引用编辑器-->
+<script type="text/javascript" src="{$resource}editor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="{$resource}editor/ueditor.all.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('container');
+</script>
+<!--引用编辑器-->
+<!-- Content Wrapper. Contains page content -->
+<div class="layui-body">
+    <div class="content-wrapper" style = "margin-left:1px ;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            添加配置
+
+        </h1>
+        <!--<ol class="breadcrumb">-->
+            <!--<li><i class="fa fa-dashboard"></i> 首页</li>-->
+            <!--<li>配置管理</li>-->
+            <!--<li class="active">添加配置</li>-->
+        <!--</ol>-->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#fa-icons" data-toggle="tab">基本设置</a></li>
+                        <!--li><a href="#seoInfor" data-toggle="tab">seo信息</a></li-->
+                    </ul>
+                    <div class="tab-content">
+                        <!--start 基本配置 -->
+                        <div class="tab-pane active" id="fa-icons">
+                            <section id="new">
+                            <form action="{:U('Navigation/addNavigation')}" method="post">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="username">任务名称</label>
+                                        <input type="text" class="form-control" name="navname" value=""autofocus id="username" placeholder="">
+                                    </div>
+                                    <!-- /.form-group -->
+                                    <div class="form-group" style="display:none">
+                                        <label>配置所属分类</label>
+                                        <select class="form-control select2" name="parentid">
+                                            <option value="0">顶级分类</option>
+                                            <?php echo getnavigationtypeoptions(0);?>
+                                        </select>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="articledescription">参数配置</label>
+                                        <textarea class="form-control" rows="3" id="navorder"  name="navtitle"></textarea>
+                                    </div>
+                                    <!--是否为外部链接-->
+                                    <div class="form-group" >
+                                        <label for="exampleInputEmail1">附带图片</label>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="isout" id="inner" class="iradio_flat-green" value="0" checked="checked">是
+
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="isout" id="out" class="flat-red" value="1" >否
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                        <!--内部链接-->
+                                    <div class="form-group" id="isinner" >
+                                        <input name="navigationurl" class="form-control" placeholder="" id="innername"  type="text" style="background-color: white">
+                                        <input name="urlnum" class="form-control" type="text" value="" id="innernum" placeholder="请选择图片张数" >
+                                    </div>
+                                    <!--外部链接-->
+                                    <div class="form-group" id="isout" style="display: none">
+
+                                    </div>
+
+
+                                    <div class="form-group" style="display:none">
+                                        <label for="exampleInputEmail1">是否显示</label>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="ishidden" class="iradio_flat-green" value="0" checked>是
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="ishidden" class="flat-red" value="1">否
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- /.form-group -->
+                                    <div class="box-footer">
+                                        <button type="submit" class="btn btn-primary">提交</button>
+                                    </div>
+                        <!-- /.box -->
+
+                        </div>
+                        <!-- end基本配置 -->
+
+                        <!-- start seo信息-->
+                        <div class="tab-pane" id="seoInfor" >
+
+                            <div class="box-body">
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">标题</label>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">关键字</label>
+                                    <input  value="11111"  type="text" name="navkeywords" class="form-control"  placeholder="请填写关键字">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">描述</label>
+                                    <input  value="11111" type="text" name="navdescription" class="form-control"  placeholder="请填写描述">
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <input type="hidden" name="configid" value="{$webconfig.config_id}">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </div>
+
+                            </form>
+
+                        </div> <!-- end seo信息-->
+
+                        <!-- /#ion-icons -->
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+
+<!-- /.content-wrapper -->
+
+<include file="Common/button"/>
+<include file="Common/selectuser"/>
+<script>
+
+    $('#out').change(function(){
+        $('#oldpages').prop('checked',false);
+        $('#newpages').prop('checked',true);
+        $('#isinner').hide();
+        $('#outurl').attr('name','navigationurl');
+        $('#isout').show()
+
+    });
+
+    $('#inner').change(function(){
+        $('#isinner').show();
+        $('#newpages').prop('checked',false);
+        $('#oldpages').prop('checked',true);
+        $('#outurl').removeAttr('name');
+        $('#isout').hide();
+    });
+
+
+</script>

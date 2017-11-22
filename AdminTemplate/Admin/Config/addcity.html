@@ -1,0 +1,91 @@
+<include file="Common/header"/>
+<include file="Common/left"/>
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        新增城市
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> 首页</li>
+        <li>系统配置</li>
+        <li class="active">新增城市</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="box">
+              <div class="box-header">
+                        <h3 class="box-title"><a href="{:U('Config/listAreas')}"><button type="button" class="btn btn-block btn-default">地区管理</button></a></h3>
+                        <h3 class="box-title"><a href="{:U('Config/addProvince')}"><button type="button" class="btn btn-block btn-default">新增省份</button></a></h3>
+                        <h3 class="box-title"><a href="#"><button type="button" class="btn btn-block btn-primary">新增城市</button></a></h3>
+                         <h3 class="box-title"><a href="{:U('Config/addArea')}"><button type="button" class="btn btn-block btn-default">新增地区</button></a></h3>
+                    </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form" method="post" action="{:U('Config/addCity')}">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">城市名称</label>
+                  <input type="text" name="cityname" class="form-control" id="exampleInputEmail1" placeholder="请填写城市名称">
+                </div> 
+                  <div class="form-group">
+                  <label>所属省份</label>
+                  <select class="form-control" name="provinceid">
+                      <option>请选择省份</option>
+                    <volist name="province" id="pro">
+                    <option value="{$pro.province_id}">{$pro.province_name}</option>
+                    </volist>
+                  </select>
+                </div>
+                  <div class="form-group">
+                  <label for="exampleInputEmail1">城市全拼</label>
+                  <input type="text" name="cityspelling" class="form-control" id="exampleInputEmail1" placeholder="请填写城市首字母大写全拼">
+                </div> 
+                   <div class="form-group">
+                   <label for="exampleInputEmail1">是否有站点</label>
+                <div class="radio">
+                <label>
+                  <input type="radio" name="ishavesite" class="iradio_flat-green" value="1" checked>是
+                </label>
+                <label>
+                  <input type="radio" name="ishavesite" class="flat-red" value="0">否
+                </label>
+                </div>
+               <div class="form-group">
+                   <label for="exampleInputEmail1">是否热点</label>
+                <div class="radio">
+                <label>
+                  <input type="radio" name="ishot" class="iradio_flat-green" value="1" checked>是
+                </label>
+                <label>
+                  <input type="radio" name="ishot" class="flat-red" value="0">否
+                </label>
+                </div>
+              </div>
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">提交</button>
+              </div>
+            </form>
+          </div>
+          </div>
+          <!-- /.box -->
+        </div>
+        <!--/.col (right) -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+<include file="Common/footer"/>

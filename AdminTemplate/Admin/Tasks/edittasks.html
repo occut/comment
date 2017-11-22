@@ -1,0 +1,215 @@
+<include file="Common/top"/>
+
+<!-- Left side column. contains the logo and sidebar -->
+<include file="Common/nav"/>
+<link rel="stylesheet" href="{$resource}bootstrap/css/bootstrap.min.css">
+<!-- Font Awesome -->
+<!--<link rel="stylesheet" href="{$resource}css/font-awesome.min.css">-->
+<!-- Ionicons -->
+<!--<link rel="stylesheet" href="{$resource}css/ionicons.min.css">-->
+<!-- Theme style -->
+<link rel="stylesheet" href="{$resource}dist/css/AdminLTE.min.css">
+
+<!--引用编辑器-->
+<script type="text/javascript" src="{$resource}editor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="{$resource}editor/ueditor.all.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('container');
+</script>
+<!--引用编辑器-->
+<!-- Content Wrapper. Contains page content -->
+<div class="layui-body">
+    <div class="content-wrapper" style = "margin-left:1px ;">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                编辑任务
+            </h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#fa-icons" data-toggle="tab">基本设置</a></li>
+                            <li><a href="#seoInfor" data-toggle="tab">seo信息</a></li>
+                            <li><a href="#auxiliaryInfor" data-toggle="tab">附属信息</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <!--start 基本配置 -->
+                            <div class="tab-pane active" id="fa-icons">
+                                <section id="new">
+                                    <div class="row fontawesome-icon-list">
+                                        <form id="formOne" role="form" method="post" action="{:U('Tasks/edittasks')}" enctype="multipart/form-data">
+                                            <div class="box-body" style="margin-left:15px;">
+                                                <div class="form-group">
+                                                    <label>任务名称</label>
+                                                    <select class="form-control" name="tasksid">
+                                                        <option value="{$tasks.tasks_id}"  value="{$tasks.tasks_name}">{$tasks.tasks_name}</option>
+                                                    </select>
+                                                    <input type="hidden" name="taskname" value="{$tasks.tasks_name}"/>
+                                                </div>
+                                                <div class="form-group" id="listAllConfigs">
+                                                </div>
+                                                <!-- /.form group -->
+                                                <eq name="navname" value=""><else/>
+                                                    <div class="form-group" id="main" style="border:1px dotted red;padding:3px;">
+                                                        <label for="articlepic">任务缩略图</label>
+                                                        <input type='file' name='tasks[]' id='tasks'/>
+                                                        <button type="submit" class="btn btn-primary" onclick="return setformurl()">提交</button>
+                                                        <p style="color:red">如果上传图片，请先上传</p>
+                                                    </div>
+                                                    <script>
+                                                        function setformurl(){
+                                                            //alert("上传成功");
+                                                            document.getElementById("formOne").action = "{:U('Tasks/Upload')}?taskid={$tasks.tasks_id}";
+                                                            return true;
+                                                        }
+                                                    </script>
+                                                </eq>
+                                                <div class="form-group">
+                                                    <label>设备分组</label>
+                                                    <select class="form-control" name="tasksgroupid">
+
+                                                        <volist name="tasksgroup" id="tasksgroup">
+                                                            <option value="{$tasksgroup.group_id}"  >{$tasksgroup.group_name}</option>
+                                                        </volist>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>下单量</label>
+                                                    <div class="radio">
+                                                        <input type="text" name="tasksnumber" value="{$tasks.tasks_number}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">任务状态</label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="taskstutas" class="iradio_flat-green" value="0" <eq name="tasks.tasks_status" value="0">checked</eq>>开启
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" name="taskstutas" class="flat-red" value="1" <eq name="tasks.tasks_status" value="1">checked</eq>>关闭
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.box-body -->
+                                    </div>
+                                    <div class="box-footer">
+                                        <input type="hidden" name="configid" value="{$webconfig.config_id}">
+                                        <button type="submit" class="btn btn-primary">提交</button>
+                                    </div>
+                                </section>
+                            </div>
+                            <!-- end基本配置 -->
+                            <!-- start seo信息-->
+                            <div class="tab-pane" id="seoInfor">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="articletitle">任务标题</label>
+                                        <input type="text" value="111" class="form-control" name="articletitle" value="" id="articletitle" placeholder="请输入任务标题">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="articlekeywords">任务关键字</label>
+                                        <input type="text" class="form-control" name="articlekeywords" value="" id="articlekeywords" placeholder="请输入任务关键字">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="articledescription">任务描述</label>
+                                        <textarea class="form-control" rows="3"id="articledescription" placeholder="请输入任务描述" name="articledescription"></textarea>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <input type="hidden" name="configid" value="{$webconfig.config_id}">
+                                    <button type="submit" class="btn btn-primary">提交</button>
+                                </div>
+                            </div> <!-- end seo信息-->
+                            <!-- start 上传设置--><div class="tab-pane" id="auxiliaryInfor">
+                            <div class="box-body">
+                                <!-- radio -->
+                                <!--logo-->
+                                <div class="form-group">
+                                    <label for="articlepic">任务缩略图</label>
+                                    <input type="file" name="articlepic" id="articlepic">
+                                    <p class="help-block">图片上传的大小不应大于3M</p>
+                                </div>
+                                <!--logo-->
+                                <div class="form-group">
+                                    <label for="articlebrowse">浏览量</label>
+                                    <input type="text" class="form-control" name="articlebrowse" value="" id="articlebrowse" placeholder="请输入浏览量">
+                                </div>
+                                <div class="form-group">
+                                    <label for="articleclicks">点击次数</label>
+                                    <input type="text" class="form-control" name="articleclick" value="" id="articleclicks" placeholder="请输入点击次数">
+                                </div>
+                                <div class="form-group">
+                                    <label for="articleauthor">作者</label>
+                                    <input type="text" class="form-control" name="articleauthor" value=""  id="articleauthor" placeholder="请输入任务作者">
+                                </div>
+                                <div class="form-group">
+                                    <label>发布时间:</label>
+                                    <div>
+                                        <input type="text" class="some_class form-control" name="articleaddtime" placeholder="不填默认为当前时间">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="articlesummary">任务摘要</label>
+                                    <input type="text" class="form-control" name="articlesummary" value="" id="articlesummary" placeholder="请输入任务摘要">
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer">
+                                <input type="hidden" name="configid" value="{$webconfig.config_id}">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </div>
+                        </div> <!-- end 上传设置-->
+                            <!-- /#ion-icons -->
+                        </div>
+                        <!-- /.tab-content -->
+                    </div>
+                    <!-- /.nav-tabs-custom -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+<!-- /.content-wrapper -->
+</div>
+<include file="Common/button"/>
+<script src="{$resource}bootstrap/js/bootstrap.min.js"></script>
+<script>
+
+ function setTaskConfig(taskId){
+	 $.ajax({
+	     url:"{:U('Tasks/getConfigsEdit')}",
+	     type:"post",
+	     dataType: "json",
+	     data:{'taskid': taskId  },
+	     async: "false",
+	     success:function(result){
+			 //alert(result.content);
+	         $("#listAllConfigs").html(result.content);
+
+	     }
+
+	 })
+ }
+ 
+ 
+ var taskId = '{$tasks.tasks_id}';
+
+ if(taskId != ''){
+	 setTaskConfig('{$tasks.tasks_id}');
+ }
+
+
+</script>
+
+

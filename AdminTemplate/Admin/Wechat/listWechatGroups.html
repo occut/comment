@@ -1,0 +1,143 @@
+<include file="Common/top"/>
+<include file="Common/nav"/>
+<div class="layui-body">
+    <div class="content-wrapper" style = "margin-left:1px ;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            正常账号
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title"><a href="javascript:;" onclick="add('导出账号','{:U('Wechat/WeExport',array('wei_static'=>$static))}')"><button type="button" class="btn btn-block btn-primary">导出账号</button></a></h3>
+                        <h3 class="box-title"><a href="javascript:;" onclick="add('导入账号','{:U('Wechat/Import',array('wei_static'=>$static))}')"><button type="button" class="btn btn-block btn-primary">导入账号</button></a></h3>
+                        <h3 class="box-title"><button class="btn btn-block btn-primary" onclick="delAll('{:U('Wechat/deleteWechats')}')">批量删除</button></h3>
+                        <h3 class="box-title"><button class="btn btn-block btn-primary" onclick="delAll('{:U('Wechat/state')}','确定更新状态么')">批量更新</button></h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-hover layui-table" style = "text-align: center;">
+                            <thead >
+                            <tr class="tng">
+                                <th style = "text-align: center;"><input type="checkbox" id="dellAll" value=""></th>
+                                <th style = "text-align: center;">ID</th>
+                                <th style = "text-align: center;">设备ID</th>
+                                <th style = "text-align: center;">账号</th>
+                                <th style = "text-align: center;">密码</th>
+                                <th style = "text-align: center;">62数据</th>
+                                <th style = "text-align: center;">金币</th>
+                                <th style = "text-align: center;">状态</th>
+                                <th style = "text-align: center;">备注</th>
+                                <th style = "text-align: center;">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="usergroups" id="vo">
+                                <tr class="tnd">
+                                    <td><input type="checkbox" value="{$vo.wei_id}" name="delAll"></td>
+                                    <td>{$vo.wei_id}</td>
+                                    <td>{$vo.wei_equipment}</td>
+                                    <td>{$vo.wei_name}</td>
+                                    <td>{$vo.wei_password}</td>
+                                    <!--<td>{$vo.wei_data}</td>-->
+                                    <td><?php echo substr($vo['wei_data'],0,20); ?>...</td>
+                                    <td>{$vo.wei_gold}</td>
+                                    <td>
+                                        <eq name="vo.wei_static" value="0">正常
+                                            <elseif condition="$vo['wei_static'] eq 2"/>登录中
+                                            <elseif condition="$vo['wei_static'] eq 3"/>登录成功
+                                            <elseif condition="$vo['wei_static'] eq 4"/>任务完成
+                                            <elseif condition="$vo['wei_static'] eq 5"/>任务未完成
+                                            <else/>禁用</eq></td>
+                                    <td>{$vo.wei_remarks}</td>
+                                    <td>
+
+                                        <eq name="vo.wei_static" value="2"><a href="javascript:;" onclick="static({$vo['wei_id']})">正常</a></eq>
+                                        <a href="javascript:if(confirm('确实要删除吗?'))location='{:U('Wechat/deleteWechat',array('wei_id'=>$vo['wei_id'],'gd'=>$groupId,'md'=>$menuId))}'">删除</a>
+                                    </td>
+                                </tr>
+                                <script>
+                                    function static(id){
+                                        console.log(id);
+                                        $.ajax({
+                                            url:"{:U('Wechat/state')}",
+                                            type:"post",
+                                            dataType: "json",
+                                            data:{'ids':id},
+                                            async: "false",
+                                            success:function(result){
+                                                if(result){
+                                                    layer.msg("更新状态成功", { icon: 6 });
+                                                    parent.location.reload();
+                                                }else{
+                                                    layer.msg("更新状态失败", { icon: 5 });
+                                                }
+                                            }
+                                        })
+                                    }
+                                </script>
+                            </volist>
+                            </tbody>
+                        </table>
+                        <div class="pagepadding">
+                            <div class="col-sm-5"><div aria-live="polite" role="status" id="example2_info" class="dataTables_info">共{$count}条</div></div><div class="col-sm-7"><div id="example2_paginate" class="dataTables_paginate paging_simple_numbers"><ul class="pagination">{$page}</ul></div></div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+    <script>
+        $(document).ready(function () {
+            var num = 1;
+            var checkbox = $("input[type='checkbox'][name='delAll']");
+            $('#dellAll').on('click',function () {
+//                alert(123);
+                if (num%2){
+                    $.each(checkbox, function(i, n){
+                        checkbox[i].checked = true;
+                    });
+                }else{
+                    $.each(checkbox, function(i, n){
+                        checkbox[i].checked = false;
+                    });
+                }
+                num++;
+            });
+            $('.selectRule').on('click',function () {
+                var classname = $(this).children(".layui-form-checkbox")[0].className;
+                var classArr = classname.split(' ');
+                var checkbox = $(this).next('td').find("input[type='checkbox']");
+                if($.inArray('layui-form-checked',classArr) >= 0){
+                    $.each(checkbox,function (i,n) {
+                        checkbox[i].checked = true;
+                    });
+                    $(this).next('td').find(".layui-form-checkbox").addClass('layui-form-checked');
+                }else{
+                    $.each(checkbox,function (i,n) {
+                        checkbox[i].checked = false;
+                    });
+                    $(this).next('td').find(".layui-form-checkbox").removeClass('layui-form-checked');
+                }
+            });
+
+        });
+    </script>
+<!-- Content Wrapper. Contains page content -->
+
+<!-- /.box -->
+<include file="Common/button"/>
+

@@ -1,0 +1,162 @@
+﻿<include file="Common/header"/>
+<include file="Common/left"/>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+       微信菜单配置
+      </h1>
+      <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> 首页</li>
+        <li>系统配置</li>
+        <li class="active">微信菜单配置</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-6" style="width:100%;">
+          <!-- general form elements -->
+          <div class="box">
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form" method="post" action="{:U('Wechat/editWechatMenu')}">
+              <div class="box-body">
+                   <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr class="tng">
+                                    <th>一级菜单名称</th>
+                                    <th>二级菜单名称</th>
+                                    <th>菜单URL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="tnd">
+                                    
+                                    <td><input type="text" name="first_1_name" value="{$pmenuname[0]}"/></td>
+                                    <td></td>
+                                    <td><input type="text" name="first_1_url" value="{$pmenuurl[0]}" style="width:100%"/></td>                                                      
+                                </tr>
+							<tr class="tnd">
+                                    
+                                    <td></td>
+                                    <td><input type="text" name="second_1_name[]" value="{$fcmenuname[0]}"/></td>
+                                    <td><input type="text" name="second_1_url[]" value="{$fcmenuurl[0]}" style="width:100%"/></td>                                   
+                                </tr>
+								<tr class="tnd">
+                                    
+                                    <td></td>
+                                    <td><input type="text" name="second_1_name[]" value="{$fcmenuname[1]}"/></td>
+                                    <td><input type="text" name="second_1_url[]" value="{$fcmenuurl[1]}" style="width:100%"/></td>                                   
+                                </tr>
+								<tr class="tnd">
+                                    
+                                    <td></td>
+                                    <td><input type="text" name="second_1_name[]" value="{$fcmenuname[2]}"/></td>
+                                    <td><input type="text" name="second_1_url[]" value="{$fcmenuurl[2]}" style="width:100%"/></td>                                   
+                                </tr>
+								<tr class="tnd">
+                                    
+                                    <td></td>
+                                    <td><input type="text" name="second_1_name[]" value="{$fcmenuname[3]}"/></td>
+                                    <td><input type="text" name="second_1_url[]" value="{$fcmenuurl[3]}" style="width:100%"/></td>                                   
+                                </tr>
+								<tr class="tnd">
+                                    
+                                    <td></td>
+                                    <td><input type="text" name="second_1_name[]" value="{$fcmenuname[4]}"/></td>
+                                    <td><input type="text" name="second_1_url[]" value="{$fcmenuurl[4]}" style="width:100%"/></td>                                   
+                                </tr>
+								<tr class="tnd">
+                                    
+                                    <td><input type="text" name="first_2_name" value="{$pmenuname[1]}" /></td>
+                                    <td></td>
+                                    <td><input type="text" name="first_2_url" value="{$pmenuurl[1]}" style="width:100%"/></td>                                                      
+                                </tr>
+							<tr class="tnd">
+                                    
+                                    <td></td>
+                                    <td><input type="text" name="second_2_name[]" value="{$scmenuname[0]}"/></td>
+                                    <td><input type="text" name="second_2_url[]" value="{$scmenuurl[0]}" style="width:100%"/></td>                                   
+                                </tr>
+								<tr class="tnd">
+                                    
+                                    <td></td>
+                                    <td><input type="text" name="second_2_name[]" value="{$scmenuname[1]}"/></td>
+                                    <td><input type="text" name="second_2_url[]" value="{$scmenuurl[1]}" style="width:100%"/></td>                                   
+                                </tr>
+								<tr class="tnd">
+                                    
+                                    <td></td>
+                                    <td><input type="text" name="second_2_name[]" value="{$scmenuname[2]}"/></td>
+                                    <td><input type="text" name="second_2_url[]" value="{$scmenuurl[2]}" style="width:100%"/></td>                                   
+                                </tr>
+								<tr class="tnd">
+                                    
+                                    <td></td>
+                                    <td><input type="text" name="second_2_name[]" value="{$scmenuname[3]}"/></td>
+                                    <td><input type="text" name="second_2_url[]" value="{$scmenuurl[3]}" style="width:100%"/></td>                                   
+                                </tr>
+								<tr class="tnd">
+                                    
+                                    <td></td>
+                                    <td><input type="text" name="second_2_name[]" value="{$scmenuname[4]}"/></td>
+                                    <td><input type="text" name="second_2_url[]" value="{$scmenuurl[4]}" style="width:100%"/></td>                                   
+                                </tr>
+								<tr class="tnd">
+                                    
+                                    <td><input type="text" name="first_3_name" value="{$pmenuname[2]}"/></td>
+                                    <td></td>
+                                    <td><input type="text" name="first_3_url" value="{$pmenuurl[2]}" style="width:100%"/></td>                                                      
+                                </tr>
+							<tr class="tnd">
+                                    
+                                    <td></td>
+                                    <td><input type="text" name="second_3_name[]" value="{$tcmenuname[0]}"/></td>
+                                    <td><input type="text" name="second_3_url[]" value="{$tcmenuurl[0]}" style="width:100%"/></td>                                   
+                                </tr>
+								<tr class="tnd">
+                                    
+                                    <td></td>
+                                    <td><input type="text" name="second_3_name[]" value="{$tcmenuname[1]}"/></td>
+                                    <td><input type="text" name="second_3_url[]" value="{$tcmenuurl[1]}" style="width:100%"/></td>                                   
+                                </tr>
+								<tr class="tnd">
+                                    
+                                    <td></td>
+                                    <td><input type="text" name="second_3_name[]" value="{$tcmenuname[2]}"/></td>
+                                    <td><input type="text" name="second_3_url[]" value="{$tcmenuurl[2]}" style="width:100%"/></td>                                   
+                                </tr>
+								<tr class="tnd">
+                                    
+                                    <td></td>
+                                    <td><input type="text" name="second_3_name[]" value="{$tcmenuname[3]}"/></td>
+                                    <td><input type="text" name="second_3_url[]" value="{$tcmenuurl[3]}" style="width:100%"/></td>                                   
+                                </tr>
+								<tr class="tnd">
+                                    
+                                    <td></td>
+                                    <td><input type="text" name="second_3_name[]" value="{$tcmenuname[4]}"/></td>
+                                    <td><input type="text" name="second_3_url[]" value="{$tcmenuurl[4]}" style="width:100%"/></td>                                   
+                                </tr>								
+								
+								</tbody>   
+                        </table>
+              </div>
+              <!-- /.form group -->
+              
+             <!-- /.box-body -->
+
+              <div class="box-footer" style="text-align:center">
+                <button type="submit" class="btn btn-primary" style="width:20%">保存并发布</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+            </div>
+            </div>
+            </section>
+          </div>
+  <include file="Common/footer"/>

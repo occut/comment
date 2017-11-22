@@ -1,0 +1,54 @@
+<include file="Common/header"/>
+<include file="Common/left"/>
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        编辑拍卖金额
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> 首页</li>
+        <li>系统配置</li>
+        <li class="active">编辑拍卖金额</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="box">
+              <div class="box-header">
+                       <h3 class="box-title"><a href="{:U('AuctionConfig/listAuctionAmounts')}"><button type="button" class="btn btn-block btn-default">拍卖金额</button></a></h3>
+                        <h3 class="box-title"><a href="#"><button type="button" class="btn btn-block btn-primary">编辑拍卖金额</button></a></h3>                       
+                    </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form" method="post" action="{:U('AuctionConfig/editAuctionAmount')}">
+                <input type="hidden" name="amountid" value="{$auctionamount.amount_id}">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="amountname">拍卖金额名称</label>
+                  <input type="text" name="amountname" class="form-control" id="amountname" value="{$auctionamount.amount_name}" placeholder="请填写拍卖金额名称">
+                </div>                   
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">提交</button>
+              </div>
+            </form>
+          </div>
+          </div>
+          <!-- /.box -->
+        </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+<include file="Common/footer"/>

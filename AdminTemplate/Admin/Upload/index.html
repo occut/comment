@@ -1,0 +1,91 @@
+<include file="Common/top"/>
+<!-- Left side column. contains the logo and sidebar -->
+<include file="Common/nav"/>
+<!--引用编辑器-->
+<script type="text/javascript" src="{$resource}editor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="{$resource}editor/ueditor.all.js"></script>
+
+<link rel="stylesheet" type="text/css" href="{$resource}h-ui.admin/css/H-ui.admin.css" />
+
+<link href="{$resource}lib/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet" type="text/css" >
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('container');
+</script>
+<!--引用编辑器-->
+<!-- Content Wrapper. Contains page content -->
+<div class="layui-body">
+    <div class="" style = "margin-left:1px ;">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+               图片资源管理
+            </h1>
+        </section>
+        <a onclick="value()" class="layui-btn" style="width:100px;float:right;margin-right:30px;">上传图片</a>
+        <div style="width:500px;float:right;">
+        <form class="layui-form x-center" action=""  style="width:50%;margin:0 auto;" id="formOne" role="form" method="post" action="{:U('Tasks/addtask')}" enctype="multipart/form-data"  >
+            <div class="layui-form-pane" id = "form" style="margin-top:15px;display:none;" >
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width:80px">地址</label>
+                    <div class="layui-input-inline" style="width:120px;text-align: left">
+                        <select name="city" lay-verify="required">
+                            <!--<option value="friend">朋友圈</option>-->
+                            <option value="image">图片</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width:80px">图片</label>
+                    <div class="layui-input-inline" style="width:120px;text-align: left">
+                        <div class="layui-input-inline" style="width:120px">
+                            <input type='file' name='tasks[]' id='tasks' />
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <!--<label class="layui-form-label" style="width:80px">地址</label>-->
+                    <div class="layui-input-inline" style="width:200px;text-align: left">
+                        <div class="layui-input-inline" style="width:200px">
+                            <button class="layui-btn"  lay-submit="" lay-filter="add" onclick="return setformurl()" style="width:100px;float:left;">上传图片</button>
+                            <a class="layui-btn layui-btn-primary"  lay-submit="" lay-filter="add" style="width:80px;float:left;" onclick="return value1()">关闭</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function setformurl(){
+                    //alert("上传成功");
+                    document.getElementById("formOne").action = "{:U('Upload/upbload')}";
+                    return true;
+                }
+                function value(){
+//                    alert(1234);
+                    document.getElementById("form").style.display="block";
+                }
+                function value1(){
+//                    alert(1234);
+                    document.getElementById("form").style.display="none";
+                }
+            </script>
+        </form>
+        </div>
+        <div style="">
+        <div style="margin:15px;">
+            <volist name="image" id="vo" >
+                <ul class="cl portfolio-area" style="margin:0px;text-align: center;">
+                    <li class="item">
+                        <div class="portfoliobox" style=" width:170px">
+                            <div class="picbox" style = ""><a href="{$vo.upload_path}{$vo.upload_name}" data-lightbox="gallery" data-title="{$vo.upload_name}"><img src="{$vo.upload_path}{$vo.upload_name}"></a></div>
+                            <div class=""> </div>
+                            <a href="{:U('Upload/dell',array('upload_id'=>$vo['upload_id']))}">删除</a>
+                        </div>
+                    </li>
+                </ul>
+            </volist>
+        </div>
+        </div>
+    <include file="Common/button"/>
+        <!--请在下方写此页面业务相关的脚本-->
+        <script type="text/javascript" src="{$resource}lib/lightbox2/2.8.1/js/lightbox.min.js"></script>

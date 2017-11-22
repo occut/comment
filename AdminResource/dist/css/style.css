@@ -1,0 +1,42 @@
+
+
+
+.tng th{
+    text-align:center;
+}
+.tnd{
+    text-align:center;
+}
+
+.tnd a {
+   
+    margin-left:25px;
+}
+.paat{
+    margin-left:20px;
+}
+#font1{
+    font-size:18px;
+}
+.look{
+    width:150px; 
+    height:30px;
+    font-weight:normal;
+}
+.root{
+    font-weight: normal;
+}
+#imgheight{
+    height:40px;
+    width:100px;
+}
+#imgdiv{
+    float:right;
+    /*margin-right:180px;*/
+    height: 50px;
+}
+#img{
+  width:80px;;
+  margin-top:-50px;
+}
+.pagepadding{padding-top:10px}

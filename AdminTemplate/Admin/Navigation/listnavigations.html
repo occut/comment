@@ -1,0 +1,78 @@
+<include file="Common/top"/>
+<include file="Common/nav"/>
+<div class="layui-body">
+<div class="content-wrapper" style = "margin-left:1px ;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            配置列表
+        </h1>
+        <!--<ol class="breadcrumb">-->
+            <!--<li><i class="fa fa-dashboard"></i> 首页</li>-->
+            <!--<li>信息管理</li>-->
+            <!--<li class="active">配置</li>-->
+        <!--</ol>-->
+    </section>
+    <div class="layui-field-box">
+        <div id="dataContent" class="">
+            <!--内容区域 ajax获取-->
+            <table style="" class="layui-table" lay-even="">
+                <thead>
+                <tr class="tng">
+                    <th style="text-align: center;">配置ID</th>
+                    <th style="text-align: center;">任务名称</th>
+                    <th style="text-align: center;">配置参数</th>
+                    <th style="text-align: center;">附带图片</th>
+                    <th style="text-align: center;">操作</th>
+                </tr>
+                </thead>
+                <tbody style="text-align: center;">
+                <?php echo getnavigationgrouplist(0);?>
+                </volist>
+
+                </tbody>
+            </table>
+            <div class="pagepadding">
+        </div>
+    </div>
+
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Content Wrapper. Contains page content -->
+
+<!-- /.box -->
+<include file="Common/button"/>
+<script>
+    function ishide(obj){
+        var ishidden=$(obj).html();
+        var nid =$(obj).next().val();
+        if(ishidden =="是"){
+            var ishides =1
+        }
+        else if(ishidden=="否"){
+            var ishides = 0
+        }
+        $.ajax({
+            url:"{:U('Navigation/isHidden')}",
+            type:"post",
+            dataType: "json",
+            data:{'navid':nid ,'ishidden':ishides },
+            async: "false",
+            success:function(ishiddens){
+                if(ishidden=="是"){
+                    $(obj).html('否');
+                    $(obj).css('color','red');
+                }
+                if(ishidden=="否"){
+                    $(obj).html('是');
+                    $(obj).css('color','#3c8dbc');
+
+                }
+            }
+
+        })
+    }
+</script>
+

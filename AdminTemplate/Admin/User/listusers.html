@@ -1,0 +1,102 @@
+<include file="Common/header"/>
+<include file="Common/left"/>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            会员管理列表
+
+        </h1>
+        <ol class="breadcrumb">
+            <li><i class="fa fa-dashboard"></i> 首页</li>
+            <li>用户中心</li>
+            <li class="active">会员管理</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title"><a href="#"><button type="button" class="btn btn-block btn-primary">会员管理列表</button></a></h3>
+                        <h3 class="box-title"><a href="{:U('User/addUser')}"><button type="button" class="btn btn-block btn-default">添加会员</button></a></h3>
+                       
+                    </div>
+                    <!-- /.box-header -->
+                    
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead >
+                                <tr class="tng">
+                                    <th>ID</th>
+                                    <th>用户名</th>  
+                                    <th>手机</th> 
+                                    <th>邮箱</th> 
+                                    <th>会员组</th>
+                                    <th>金额</th>
+                                    <th>用户积分</th>
+                                    <th>状态</th>
+                                    <th>注册时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="vo">
+                                <tr class="tnd">
+                                    <td>{$vo.user_id}</td>
+                                    <td>{$vo.user_name}</td>
+                                    <td>{$vo.user_mobile}</td>
+                                    <td>{$vo.user_email}</td> 
+                                    
+                                    <td> <volist name='usergroup' id="voo">
+                                    <eq name="vo.group_id" value="$voo.group_id">{$voo.group_name}</eq>
+                                    </volist>
+                                    </td>
+                                
+                                <td>{$vo.user_money}</td>
+                                <td>{$vo.user_score}</td>
+                                
+                                <switch name="vo.user_id_status">
+                                <case value="0"><td>审核中</td></case>
+                                <case value="1"><td>审核成功</td></case>
+                                <case value="2"><td>审核失败</td></case>
+                                <default />
+                                <td></td>
+                                </switch>
+                                
+                                <td>{$vo.reg_time|date='Y-m-d H-s-i',###}</td>
+
+
+                                <td>
+                                    <a href="{:U('User/editUser',array('userid'=>$vo['user_id'],'gd'=>$groupId,'md'=>$menuId))}">编辑</a>
+                                    <a href="javascript:if(confirm('确实要删除吗?'))location='{:U('User/deleteUser',array('userid'=>$vo['user_id'],'gd'=>$groupId,'md'=>$menuId))}'">删除</a>
+                                 
+                                </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                
+                <div class="pagepadding">               
+                <div class="col-sm-5"><div aria-live="polite" role="status" id="example2_info" class="dataTables_info">共{$count}条</div></div><div class="col-sm-7"><div id="example2_paginate" class="dataTables_paginate paging_simple_numbers"><ul class="pagination">{$page}</ul></div></div>
+                </div>
+                    <!-- /.box-body -->
+                </div>
+               
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Content Wrapper. Contains page content -->
+
+<!-- /.box -->
+<include file="Common/footer"/>
+

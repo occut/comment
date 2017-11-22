@@ -1,0 +1,142 @@
+<include file="Common/header"/>
+<include file="Common/left"/>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+          添加会员
+
+        </h1>
+        <ol class="breadcrumb">
+            <li><i class="fa fa-dashboard"></i> 首页</li>
+            <li>用户中心</li>
+            <li class="active">会员管理</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                   <h3 class="box-title"><a href="{:U('User/listUsers')}"><button type="button" class="btn btn-block btn-default">会员管理列表</button></a></h3>
+                   <h3 class="box-title"><a href="#"><button type="button" class="btn btn-block btn-primary">添加会员</button></a></h3>
+                 
+                    </div>
+                    <!-- /.box-header -->
+            <!-- /.box-header -->
+            <!-- form start -->
+                    <form action="{:U('User/addUser')}" method="post" >
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="username">用户名</label>
+                                <input type="text" class="form-control" name="username" autofocus id="username" placeholder="请输入用户名" required>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="tel">手机号码</label>
+                                <input type="text" class="form-control" name="usermobile"  id="tel" pattern="^((13)|18|15)+\d{9}$" placeholder="请输入手机号码">
+                            </div>
+                            
+                             <div class="form-group">
+                                <label for="tel">微信</label>
+                                <input type="text" class="form-control" name="userweixin"  placeholder="请输入微信">
+                            </div>
+                            
+                             <div class="form-group">
+                                <label for="tel">QQ</label>
+                                <input type="text" class="form-control" name="userqq"   placeholder="请输入QQ">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="useremail">邮箱</label>
+                                <input type="email" class="form-control" name="useremail"  id="useremail" placeholder="请输入邮箱">
+                            </div>
+
+                            <!-- radio -->
+                            <div class="form-group" style="margin-top:20px;">  
+                                <label for="tel">用户类型</label>
+                            </div>  
+                            <div class="form-group"  style="margin-top:-10px;">
+                                <label>
+                                    <input type="radio" name="is_business" class="flat-red" value="0" checked>
+                                   <span class="root">个人用户</span>
+                                </label>
+                                <label class="paat">
+                                    <input type="radio" name="is_business"  value="1" class="flat-red">
+                                   <span class="root"> 企业用户</span>
+                                </label>
+                            </div>
+                            <!-- radio -->
+
+                            <!-- /.form-group -->
+                            <div class="form-group">
+                                <label>会员组</label>
+                                <select class="form-control select2" name="groupid"> 
+                                    <option value="" >----请选择----</option>
+                                      <volist name="usergroup" id="vo">
+                                    <option value="{$vo.group_id}">{$vo.group_name}</option>
+                                     </volist>
+                                </select>
+                            </div>
+                            <!-- /.form-group -->
+
+                            <div class="form-group">
+                                <label for="usermoney">用户金额</label>
+                                <input type="number" class="form-control" name="usermoney"  id="usermoney" value="0" pattern="^((13)|18|15)+\d{9}$" placeholder="请输入用户金额">
+                            </div>
+                            
+                              <div class="form-group">
+                                <label for="userscore">用户积分</label>
+                                <input type="number" class="form-control" name="userscore"  id="userscore" value="0" placeholder="请输入用户积分">
+                            </div>
+
+                            <!-- radio -->
+                            <div class="form-group">  
+                                <label for="userstatus">状态</label>
+                            </div>  
+                            <div class="form-group"  style="margin-top:-10px;">
+                                <label>
+                                    <input type="radio" name="userstatus"  id="userstatus" class="flat-red" value="1" checked>
+                                   <span class="root"> 正常</span>
+                                </label>
+                                <label class="paat">
+                                    <input type="radio" name="userstatus"  id="userstatus" value="0" class="flat-red">
+                                   <span class="root"> 禁用</span>
+                                </label>
+                            </div>
+                              <!-- radio -->
+
+                      <div class="form-group">
+                  <label for="password">密码</label>
+                  <input type="password" class="form-control" name="password"  id="password" placeholder="请输入新密码" required>
+                </div>
+                            
+                            
+                            
+                  <div class="form-group">
+                  <label for="userpass">确认密码</label>
+                  <input type="password" class="form-control" name="userpass"  id="userpass" placeholder="请输入确认密码" required>
+                </div>
+
+
+
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">提交</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </section>
+    <!--/.col (right) -->
+</div>
+<scrip>
+
+    <include file="Common/footer"/>

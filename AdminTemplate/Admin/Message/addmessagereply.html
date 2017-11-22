@@ -1,0 +1,122 @@
+<include file="Common/header"/>
+<!-- Left side column. contains the logo and sidebar -->
+<include file="Common/left"/>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            留言回复
+        </h1>
+        <ol class="breadcrumb">
+            <li><i class="fa fa-dashboard"></i> 首页</li>
+            <li>信息管理</li>
+            <li class="active">留言管理</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#fa-icons" data-toggle="tab">基本设置</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <!--start 基本配置 -->
+                        <div class="tab-pane active" id="fa-icons">
+                            <section id="new">
+                                <div class="row fontawesome-icon-list">
+                                    <form role="form" method="post" action="{:U('Message/addmessagereply')}" enctype="multipart/form-data">
+                                        <div class="box-body" style="margin-left:15px;">
+                                            <input type="hidden" name="messageid" value="{$message.message_id}">
+                                            <div class="form-group">
+                                                <label for="messagename">留言人</label>
+                                                <input type="text" class="form-control" name="messagename" value="{$message.message_link}" autofocus id="messagename" readonly="readonly">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="messagetel">联系方式</label>
+                                                <input type="text" class="form-control" name="messagebrowse" value="{$message.message_tel}" readonly="readonly">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="messageweixin">微信</label>
+                                                <input type="text" class="form-control" name="messagebrowse" value="{$message.message_wenxi}" readonly="readonly" >
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="messageqq">qq</label>
+                                                <input type="text" class="form-control" name="messagebrowse" value="{$message.message_qq}" readonly="readonly">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="messageemail">邮箱</label>
+                                                <input type="text" class="form-control" name="messagebrowse" value="{$message.message_email}" readonly="readonly" >
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="messageweixin">地址</label>
+                                                <input type="text" class="form-control" name="messagebrowse" value="{$message.message_wenxi}" readonly="readonly" >
+                                            </div>
+                                            <div class="form-group">
+                                                <label>留言时间:</label>
+                                                    <input class="form-control"  type="text" value="{$message.message_addtime|date='Y-m-d H:m:s',###}" name="messageaddtime" readonly="readonly">
+                                            </div>
+                                            <!-- /.form-group -->
+
+                                            <!-- /.form-group -->
+                                            <div class="form-group">
+                                                <label for="messagecontent">留言内容</label>
+                                                <textarea class="form-control" rows="3"   name="messagecontent" readonly="readonly">{$message.message_content}</textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="articledescription">回复留言</label>
+                                                <textarea class="form-control" rows="3" placeholder="回复内容" name="messagereply"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">是否显示</label>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="ishidden" class="iradio_flat-green" value="0" checked>是
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="ishidden" class="flat-red" value="1">否
+                                                    </label>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- /.form group -->
+                                        </div>
+                                        <!-- /.box-body -->
+                                        </div>
+                                        <div class="box-footer">
+                                            <input type="hidden" name="configid" value="{$webconfig.config_id}">
+                                            <button type="submit" class="btn btn-primary">提交</button>
+                                        </div>
+                            </section>
+                        </div>
+                        <!-- end基本配置 -->
+
+                            <!-- Date and time range -->
+
+                            <!-- /.form group -->
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div> <!-- end 上传设置-->
+                        <!-- /#ion-icons -->
+
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<include file="Common/footer"/>

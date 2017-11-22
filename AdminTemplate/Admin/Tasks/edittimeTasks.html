@@ -1,0 +1,158 @@
+<include file="Common/top"/>
+<!-- Left side column. contains the logo and sidebar -->
+<include file="Common/nav"/>
+<!--引用编辑器-->
+<script type="text/javascript" src="{$resource}editor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="{$resource}editor/ueditor.all.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('container');
+</script>
+<!--引用编辑器-->
+<!-- Content Wrapper. Contains page content -->
+<div class="layui-body">
+    <div class="content-wrapper" style = "margin-left:1px ;">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                编辑任务
+            </h1>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div style="margin-bottom: 20px">
+                <a href="{:U('Tasks/listTasks')}" class="layui-btn ">任务管理</a>
+            </div>
+            <form class="layui-form" method="post" action="{:U('Tasks/edittimeTasks')}">
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width:150px;">任务名称</label>
+                    <div class="layui-input-inline" style="width:400px;margin-left:0px;">
+                        <input type="hidden" name="time_id" value="{$tasks.time_id}">
+                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入任务名称" value="{$tasks.time_title}" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"  style="width:150px;">设备分组</label>
+                    <div class="layui-input-block" style="width:400px;margin-left:150px;">
+                        <select  name="tasksgroupid" lay-verify="required">
+
+                            <volist name="tasksgroup" id="tasksgroup">
+                                <option value="{$tasksgroup.group_id}" <if condition="($tasksgroup['group_name'] eq $tasks['group_name'])"> selected</if>>{$tasksgroup.group_name}</option>
+                            </volist>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width:150px;">网站地址URL</label>
+                    <div class="layui-input-inline" style="width:400px;margin-left:0px;">
+                        <input type="text" name="url" value="{$tasks.time_url}" required  lay-verify="required" placeholder="请输入网站地址URL" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width:150px;">经纬度</label>
+                    <div class="layui-input-inline" style="width:400px;margin-left:0px;">
+                        <input type="text" name="ip" value="{$tasks.time_ip}" required  lay-verify="required" placeholder="请输入网站地址URL" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width:150px;">范围选择</label>
+                    <div class="layui-input-inline" style="width:200px;margin-left:0px;">
+                        <input class="layui-input" name="time[start]" value="{$tasks.time_starttime}"  placeholder="开始日" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+                        <!--<input class="layui-input" name="time[]" placeholder="开始日" id="LAY_demorange_s">-->
+                    </div>
+                    <div class="layui-input-inline">
+                        <input class="layui-input" name="time[end]" value="{$tasks.time_endtime}" placeholder="截止日" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+                        <!--<input class="layui-input" name="time[]" placeholder="截止日" id="LAY_demorange_e">-->
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width:150px;">预设流量</label>
+                    <div class="layui-input-inline" style="width:200px;margin-left:0px;">
+                        <input type="text" name="flow" value="{$tasks.time_flow}" required  lay-verify="required" placeholder="预设流量" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">下单量</div>
+                </div>
+
+             <!--    <div class="layui-form-item">
+                    <label class="layui-form-label" style="width:150px;">用户操作次数</label>
+                    <div class="layui-input-inline" style="width:200px;margin-left:0px;">
+                        <input type="text" name="frequency" value="{$tasks.time_frequency}" required  lay-verify="required" placeholder="用户操作次数" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">辅助文字</div>
+                </div> -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width:150px;">用户操作停留时间</label>
+                    <div class="layui-input-inline" style="width:200px;margin-left:0px;">
+                        <input type="text" name="stop" value="{$tasks.time_stop}" required  lay-verify="required" placeholder="用户操作停留时间" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">单位：秒</div>
+                </div>
+              <!--   <div class="layui-form-item">
+                    <label class="layui-form-label" style="width:150px;">用户操作行为</label>
+                    <div class="layui-input-inline" style="width:200px;margin-left:0px;">
+                        <input type="text" name="behavior" value="{$tasks.time_behavior}" required  lay-verify="required" placeholder="用户操作行为" autocomplete="off" class="layui-input">
+                    </div>
+                </div> -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width:150px;">任务状态</label>
+                <div class="layui-input-block"  style="width:200px;margin-left:150px;">
+                        <input type="radio" name="time_status" value="0" title="开启"  <?php if($tasks['time_status'] == 0) echo "checked"; ?>>
+                        <input type="radio" name="time_status" value="1" title="关闭" <?php if($tasks['time_status'] == 1) echo "checked"; ?>>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+            <script src="{$resource}layui/layui.js"></script>
+            <script src="{$resource}layui/lay/modules/laydate.js"></script>
+            <script>
+                //Demo
+                layui.use('form', function(){
+                    var form = layui.form();
+
+                    //监听提交
+                    form.on('submit(formDemo)', function(data){
+                        layer.msg(JSON.stringify(data.field));
+                        return false;
+                    });
+                });
+                layui.use('laydate', function(){
+                    var laydate = layui.laydate;
+                    var start = {
+                        min: laydate.now()
+                        ,max: '2099-06-16 23:59:59'
+                        ,istoday: false
+                        ,choose: function(datas){
+                            end.min = datas; //开始日选好后，重置结束日的最小日期
+                            end.start = datas //将结束日的初始值设定为开始日
+                        }
+                    };
+                    var end = {
+                        min: laydate.now()
+                        ,max: '2099-06-16 23:59:59'
+                        ,istoday: false
+                        ,choose: function(datas){
+                            start.max = datas; //结束日选好后，重置开始日的最大日期
+                        }
+                    };
+                    document.getElementById('LAY_demorange_s').onclick = function(){
+                        start.elem = this;
+                        laydate(start);
+                        console.log(start);
+                    }
+                    document.getElementById('LAY_demorange_e').onclick = function(){
+                        end.elem = this
+                        laydate(end);
+                    }
+
+                });
+            </script>
+        </section>
+    </div>
+</div>
+<include file="Common/button"/>

@@ -1,0 +1,268 @@
+<include file="Common/top"/>
+<include file="Common/nav"/>
+<!--主体内容-->
+<div class="layui-body">
+    <div class="content-wrapper" style = "margin-left:1px ;">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                任务管理列表
+            </h1>
+        </section>
+
+        <div class="layui-field-box">
+            <div id="dataContent" class="">
+                <!--内容区域 ajax获取-->
+                <div class="box-header">
+                    <a href="{:U('Tasks/taskscreate')}" class="layui-btn ">添加任务</a>
+                    <h3 class="box-title layui-btn"><button class="btn layui-btn " onclick="delAll('{:U('Tasks/deletesTasks')}')">批量删除</button></h3>
+                    <h3 class="box-title layui-btn"><button class="btn layui-btn " onclick="delAll('{:U('Tasks/opentasks')}','批量开启')">批量开启</button></h3>
+                    <form class="layui-form"  style="float:right;width:350px;" action="{:U('Tasks/listTasks')}">
+                    <input style="float:left;width:200px;" type="text" name="title" required  lay-verify="required" placeholder="请输入任务名称或关键字" autocomplete="off" class="layui-input">
+                    <button style="float:right;width:100px;margin-right:20px;" class="layui-btn" lay-submit lay-filter="formDemo">搜索</button>
+                    </form>
+                    <div style="margin:10px 10px;">
+                        使用率：
+
+                        <a style="color: <if condition='(80 lt $rate)'> red<else /> black</if>;">{$rate}&nbsp;&nbsp;&nbsp;&nbsp;<if condition='(80 lt $rate)'>请添加设备</if></a>
+                    </div>
+                <table style="" class="layui-table" lay-even="" >
+                    <thead>
+                    <tr class="tng" >
+                        <th style = "width:5%;text-align: center;"><input type="checkbox" id="dellAll" value=""></th>
+                        <!--<th style = "width:5%;text-align: center;"><input type="checkbox" id="dellAll" value=""></th>-->
+                        <th style="text-align: center;">ID</th>
+                        <th style="text-align: center;">任务名称</th>
+                        <!-- <th style="text-align: center;">分组名</th> -->
+                        <th style="text-align: center;">网站地址</th>
+                        <th style="text-align: center;">经纬度</th>
+                        <th style="text-align: center;">下单量</th>
+                        <th style="text-align: center;">设备</th>
+                        <th style="text-align: center;">开始时间</th>
+                        <th style="text-align: center;">剩余时间</th>
+                        <th style="text-align: center;">昨天/今天</th>
+                        <!-- <th style="text-align: center;">总量/完成</th> -->
+                        <th style="text-align: center;">任务状态</th>
+                        <th style="text-align: center;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <volist name="tasks" id="vo">
+                        <tr class="tnd">
+                            <td style="text-align: center;"><input type="checkbox" id="{$vo.time_id}" value="{$vo.time_id}" name="delAll"></td>
+                            <td style="text-align: center;"><span>{$vo.time_id}</span></td>
+                            <td style="text-align: center;"><span>{$vo.time_title}</span></td>
+                            <!-- <td style="text-align: center;"><span>{$vo.group_name}</span></td> -->
+                            <td style="text-align: center;"><span>{$vo.time_url|subtext=10}</span></td>
+                            <td style="text-align: center;">
+                                <span>
+                                    <input data-node_id="{$vo.time_id}" class="input" value="{$vo.time_ip}" style="width:55px;" class="layui-input sortid" placeholder="请输入ID" type="text">
+                                </span></td>
+                            <td style="text-align: center;"><span>{$vo.time_flow}</span></td>
+                            <td style="text-align: center;"><span>{$vo.equipment_id|subtext=10}</span></td>
+                            <td style="text-align: center;"><span>{$vo.time_starttime}</span></td>
+                            <!--round((strtotime($vo['time_endtime']) - strtotime($vo['time_starttime']))/(24*3600))-->
+                            <td style="text-align: center;"><span>
+                                <?php
+                            $a = (strtotime($vo['time_endtime']) - time());
+                            $day = floor($a/(24*3600));
+                            if($day == 0){
+                                $h = floor($a/3600);
+                            }else{
+                                 $h = floor($a/3600);
+                                 $h = $h - 24*$day;
+                            }
+                            $d = $a % 3600;
+                            $s = floor($d/60);
+                            $day = $day+1;
+                            if($day>=0){
+                                if($day>=3){
+                                    echo "<p style=''>剩余天数:".$day."天" .$h."小时</p>";
+                                }else{
+                                    echo "<p style='color:red;'>剩余天数:".$day."天" .$h."小时</p>";
+                                }
+                                }else{
+                                echo  "<p style='color:red;'>已过期</p>";
+                                }
+                            ?>
+                            </span></td>
+                            <td style="text-align: center;"><span>{$vo.time_lcomplete}/{$vo.time_complete}</span></td>
+                            <!-- <td style="text-align: center;"><span>{$vo.total}/{$vo.finish}</span></td> -->
+                            <td style="text-align: center;"><eq name="vo.time_status" value="0"><a href="#" name="0" onclick="ishide(this,{$vo.time_id})">开始任务</a><else/><a href="#" name="1" onclick="ishide(this,{$vo.time_id})" style="color: red">关闭任务</a></eq></td>
+                            <td style="text-align: center;">
+                                <a  href="{:U('Tasks/edittimeTasks',array('time_id'=>$vo['time_id']))}">编辑</a>
+                                <a  href="javascript:if(confirm('确实要删除吗?'))location='{:U('Tasks/deletetimeTasks',array('time_id'=>$vo['time_id']))}'">删除</a>
+                            </td>
+                        </tr>
+                    </volist>
+                    </tbody>
+                </table>
+                <div id="pageNav"></div>
+            </div>
+        </div>
+        <div class="pagepadding">
+            <div class="col-sm-5"><div aria-live="polite" role="status" id="example2_info" class="dataTables_info">共{$count}条</div></div><div class="col-sm-7"><div id="example2_paginate" class="dataTables_paginate paging_simple_numbers"><ul class="pagination">{$page}</ul></div></div>
+        </div>
+</div>
+        <script>
+            $(".input").change(function(data){
+
+                var id = $(this).attr('data-node_id');
+                var value = $(this).val();
+                $.ajax({
+                    url:"{:U('Tasks/ip')}",
+                    type:"post",
+                    dataType: "json",
+                    data:{'time_id':id ,'ip':value },
+                    async: "false",
+                    success:function(result){
+                        if(result == 1){
+                            layer.msg("更新经纬度成功", { icon: 6 });
+                            parent.location.reload();
+                        }
+                        if(result == 2){
+                            layer.msg("更新经纬度失败", { icon: 5 });
+                        }
+                        if(result == 3){
+                            layer.msg("当前任务已过期", { icon: 5 });
+                        }
+                    }
+                })
+            })
+        </script>
+        <script>
+            $(document).ready(function () {
+                var num = 1;
+                var checkbox = $("input[type='checkbox'][name='delAll']");
+                $('#dellAll').on('click',function () {
+//                alert(123);
+                    if (num%2){
+                        $.each(checkbox, function(i, n){
+                            checkbox[i].checked = true;
+                        });
+                    }else{
+                        $.each(checkbox, function(i, n){
+                            checkbox[i].checked = false;
+                        });
+                    }
+                    num++;
+                });
+                $('.selectRule').on('click',function () {
+                    var classname = $(this).children(".layui-form-checkbox")[0].className;
+                    var classArr = classname.split(' ');
+                    var checkbox = $(this).next('td').find("input[type='checkbox']");
+                    if($.inArray('layui-form-checked',classArr) >= 0){
+                        $.each(checkbox,function (i,n) {
+                            checkbox[i].checked = true;
+                        });
+                        $(this).next('td').find(".layui-form-checkbox").addClass('layui-form-checked');
+                    }else{
+                        $.each(checkbox,function (i,n) {
+                            checkbox[i].checked = false;
+                        });
+                        $(this).next('td').find(".layui-form-checkbox").removeClass('layui-form-checked');
+                    }
+                });
+
+            });
+        </script>
+        <include file="Common/button"/>
+    <script>
+        $(document).ready(function () {
+            var num = 1;
+            var checkbox = $("input[type='checkbox'][name='delAll']");
+            $('#dellAll').on('click',function () {
+//                alert(123);
+                if (num%2){
+                    $.each(checkbox, function(i, n){
+                        checkbox[i].checked = true;
+                    });
+                }else{
+                    $.each(checkbox, function(i, n){
+                        checkbox[i].checked = false;
+                    });
+                }
+                num++;
+            });
+            $('.selectRule').on('click',function () {
+                var classname = $(this).children(".layui-form-checkbox")[0].className;
+                var classArr = classname.split(' ');
+                var checkbox = $(this).next('td').find("input[type='checkbox']");
+                if($.inArray('layui-form-checked',classArr) >= 0){
+                    $.each(checkbox,function (i,n) {
+                        checkbox[i].checked = true;
+                    });
+                    $(this).next('td').find(".layui-form-checkbox").addClass('layui-form-checked');
+                }else{
+                    $.each(checkbox,function (i,n) {
+                        checkbox[i].checked = false;
+                    });
+                    $(this).next('td').find(".layui-form-checkbox").removeClass('layui-form-checked');
+                }
+            });
+
+        });
+
+    </script>
+
+<script>
+setTimeout(function(){location.reload()},300000); //指定1秒刷新一次
+    function ishide(obj,id){
+        var b= $(obj).html();
+        console.log(b);
+        console.log(id);
+        if(b =="开始任务"){
+            var c =1
+        }
+        else if(b=="关闭任务"){
+            var c = 0
+        }
+        $.ajax({
+            url:"{:U('Tasks/isHidden')}",
+            type:"post",
+            dataType: "json",
+            data:{'time_id':id ,'time_status':c },
+            async: "false",
+            success:function(result){
+                    if(result == 1){
+                        layer.msg("更新状态成功", { icon: 6 });
+                        parent.location.reload();
+                    }
+                    if(result == 2){
+                        layer.msg("更新状态失败", { icon: 5 });
+                    }
+                    if(result == 3){
+                        layer.msg("当前任务已过期", { icon: 5 });
+                    }
+            }
+        })
+    }
+    function isstate(obj,aid){
+        var b= $(obj).html();
+        console.log(aid);
+        var c = 0;
+        $.ajax({
+            url:"{:U('Article/isHidden')}",
+            type:"post",
+            dataType: "json",
+            data:{'articleid':aid ,'ishidden':c },
+            async: "false",
+            success:function(ishiddens){
+                layer.alert("重启中",{ icon: 1,skin: 'layer-ext-moon' },function(){
+                    location.reload();
+                });
+//                if(b=="开始任务"){
+//                    $(obj).html('关闭任务');
+//                    $(obj).css('color','red');
+//                }
+                if(b=="关闭任务"){
+                    $(obj).html('开始任务');
+                    $(obj).css('color','#3c8dbc');
+                }
+            }
+
+        })
+
+    }
+
+</script>

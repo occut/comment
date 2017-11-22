@@ -1,0 +1,66 @@
+<include file="Common/top"/>
+<include file="Common/nav"/>
+
+<div class="layui-body">
+    <div class="content-wrapper" style = "margin-left:1px ;">
+        <!-- Content Header (Page header) -->
+        <section class="content-header" >
+            <h1>
+                任务分组管理列表
+            </h1>
+            <!--<ol class="breadcrumb">-->
+                <!--<li><i class="fa fa-dashboard"></i> 后台首页</li>-->
+                <!--<li>信息管理</li>-->
+                <!--<li class="active">任务管理</li>-->
+            <!--</ol>-->
+        </section>
+    <div class="layui-field-box">
+        <div id="dataContent" class="">
+            <!--内容区域 ajax获取-->
+            <table style="" class="layui-table" lay-even="">
+                <thead >
+                <tr class="tng">
+                    <th style="width:10%;text-align: center;">分组ID</th>
+                    <th style="width:20%;text-align: center;">分组名称</th>
+                    <th style="width:15%;text-align: center;">设备列表</th>
+                    <th style="width:15%;text-align: center;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <volist name="tasksGroup" id="vo">
+                    <tr class="tnd">
+
+                        <td style="text-align: center;"><span>{$vo.group_id}</span></td>
+                        <td style="text-align: center;"><span>{$vo.group_name}</span></td>
+                        <td style="text-align: center;"><span>{$vo.equlist|htmlspecialchars_decode||substr=0,20}</span></td>
+                        <td style="text-align: center;">
+                            <a href="{:U('Tasks/editTaskGroup',array('taskGroupid'=>$vo['group_id']))}">编辑</a>
+                            <a  href="javascript:if(confirm('确实要删除吗?'))location='{:U('Tasks/deleteTaskGroup',array('taskGroupid'=>$vo['group_id']))}'">删除</a>
+                        </td>
+                    </tr>
+                </volist>
+                </tbody>
+
+            </table>
+            <div id="pageNav"></div>
+        </div>
+    </div>
+    <div class="pagepadding">
+        <div class="col-sm-5"><div aria-live="polite" role="status" id="example2_info" class="dataTables_info">共{$count}条</div></div><div class="col-sm-7"><div id="example2_paginate" class="dataTables_paginate paging_simple_numbers"><ul class="pagination">{$page}</ul></div></div>
+    </div>
+    <!-- layui.js -->
+    <script src="../plugin/layui/layui.js"></script>
+    <!-- layui规范化用法 -->
+    <script type="text/javascript">
+        layui.config({
+            base: '../js/'
+        }).use('datalist');
+    </script>
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Content Wrapper. Contains page content -->
+
+<!-- /.box -->
+<include file="Common/button"/>
+
